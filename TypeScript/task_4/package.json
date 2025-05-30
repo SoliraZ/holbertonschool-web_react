@@ -1,0 +1,13 @@
+{
+  "name": "typescript-tasks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node js/main.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+} 
