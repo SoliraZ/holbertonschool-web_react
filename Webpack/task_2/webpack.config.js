@@ -16,6 +16,8 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
+        type: 'javascript/auto',
+        dependency: { not: ['url'] },
         use: [
           {
             loader: 'file-loader',
