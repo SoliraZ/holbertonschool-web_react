@@ -1,7 +1,4 @@
-button {
-  margin-right: 12px;
-}
-
 #count {
+  display: inline;
   font-weight: bold;
 }
