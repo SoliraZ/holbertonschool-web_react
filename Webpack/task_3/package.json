@@ -1,20 +1,15 @@
 {
   "name": "task_3",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "start-dev": "webpack serve --open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-dev": "webpack serve --open"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "jquery": "^3.7.1",
-    "lodash": "^4.17.21"
-  },
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.2",
@@ -25,5 +20,10 @@
     "webpack": "^5.100.2",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.3"
-  }
+  },
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "lodash": "^4.17.21"
+  },
+  "description": ""
 }
