@@ -28,41 +28,29 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/i,
-        type: 'javascript/auto',
-        dependency: { not: ['url'] },
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'assets',
-            },
-          },
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              gifsicle: { enabled: false },
-              mozjpeg: { enabled: false },
-              optipng: { enabled: false },
-              pngquant: { enabled: false },
-              svgo: { enabled: false },
-              webp: { enabled: false },
-            },
-          },
-        ],
+        test: /\.(gif|jpe?g|png|svg)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name][ext]',
+        },
       },
     ],
   },
   optimization: {
     splitChunks: {
-      chunks: 'all',
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
     },
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Task 3',
+      title: 'Holberton Webpack',
     }),
   ],
 };
