@@ -9,7 +9,7 @@ export default defineConfig([
   globalIgnores(['dist']),
   {
     files: ['**/*.{js,jsx}'],
-    ignores: ['**/*.test.{js,jsx}', '**/setupTests.js'],
+    ignores: ['**/*.test.{js,jsx}', '**/*.spec.js', '**/setupTests.js'],
     extends: [
       js.configs.recommended,
       react.configs.flat.recommended,
@@ -28,7 +28,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['**/*.test.{js,jsx}', '**/setupTests.js'],
+    files: ['**/*.test.{js,jsx}', '**/*.spec.js', '**/setupTests.js'],
     extends: [js.configs.recommended, react.configs.flat.recommended],
     languageOptions: {
       globals: {
