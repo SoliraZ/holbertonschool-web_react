@@ -13,14 +13,19 @@ export default function App() {
         <img src={holbertonLogo} alt="holberton logo" />
         <h1>School dashboard</h1>
       </div>
+
       <div className="App-body">
         <p>Login to access the full dashboard</p>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="email" name="email" />
-        <label htmlFor="password">Password</label>
-        <input id="password" type="password" name="password" />
-        <button type="button">OK</button>
+
+        <label htmlFor="email">Email : </label>
+        <input type="email" name="email" id="email" />
+
+        <label htmlFor="password">Password : </label>
+        <input type="password" name="password" id="password" />
+
+        <button>OK</button>
       </div>
+
       <div className="App-footer">
         <p>
           Copyright {getCurrentYear()} {getFooterCopy(false)}
