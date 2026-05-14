@@ -1,5 +1,5 @@
 import { render, screen, within } from '@testing-library/react'
-import App from './App/App.jsx'
+import App from './App.jsx'
 
 describe('App', () => {
   beforeEach(() => {
