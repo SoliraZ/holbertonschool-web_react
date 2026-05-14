@@ -1,6 +1,6 @@
 import './App.css'
 import holbertonLogo from './assets/holberton-logo.jpg'
-import { Notifications } from './Notifications.jsx'
+import Notifications from './Notifications.jsx'
 import { getCurrentYear, getFooterCopy } from './utils.js'
 
 export default function App() {
