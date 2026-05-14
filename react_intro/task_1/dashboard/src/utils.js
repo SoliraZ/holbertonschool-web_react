@@ -8,5 +8,3 @@ export function getFooterCopy(isIndex) {
   }
   return 'Holberton School main dashboard'
 }
-
-export default { getCurrentYear, getFooterCopy }

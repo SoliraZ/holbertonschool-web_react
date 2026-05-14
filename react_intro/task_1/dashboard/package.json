@@ -37,20 +37,16 @@
     "vite": "^5.4.11"
   },
   "jest": {
-    "testEnvironment": "jest-environment-jsdom",
-    "setupFilesAfterEnv": [
-      "<rootDir>/setupTests.js"
-    ],
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": ["<rootDir>/setupTests.js"],
     "moduleNameMapper": {
-      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileTransformer.js",
+      "^.+\\.(css|less|scss|sass)$": "identity-obj-proxy"
     },
     "transform": {
-      "^.+\\.jsx?$": "babel-jest",
-      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/fileTransformer.cjs"
+      "^.+\\.jsx?$": "babel-jest"
     },
-    "transformIgnorePatterns": [
-      "/node_modules/"
-    ],
+    "transformIgnorePatterns": ["/node_modules/"],
     "testMatch": [
       "<rootDir>/src/**/*.test.js?(x)",
       "<rootDir>/src/**/*.spec.js"

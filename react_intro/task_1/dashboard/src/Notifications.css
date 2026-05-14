@@ -1,14 +1,7 @@
 .notification-items {
-  width: 100%;
-  padding: 0.75rem 1.25rem;
-  margin: 0;
-  border: 2px dashed #e1003c;
-  background: #fff;
+  border: #e1003c dotted 2.5px;
 }
 
 .notification-items p {
-  margin: 0;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 0.95rem;
-  color: #000;
+  margin-left: 1rem;
 }

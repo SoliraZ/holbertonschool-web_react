@@ -22,7 +22,7 @@ describe('App', () => {
     expect(
       within(footer).getByText(
         new RegExp(
-          `copyright\\s*${year}\\s+holberton school main dashboard`,
+          `copyright\\s*${year}\\s*-\\s*holberton school`,
           'i',
         ),
       ),
