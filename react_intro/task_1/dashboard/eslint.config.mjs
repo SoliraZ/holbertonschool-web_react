@@ -50,7 +50,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['vite.config.js', 'fileTransformer.cjs', 'src/utils.js'],
+    files: ['vite.config.mjs', 'fileTransformer.js', 'src/utils.js'],
     extends: [js.configs.recommended],
     languageOptions: {
       globals: globals.node,
