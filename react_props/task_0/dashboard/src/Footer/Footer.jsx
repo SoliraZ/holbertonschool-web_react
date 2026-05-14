@@ -1,4 +1,4 @@
-import { getCurrentYear, getFooterCopy } from '../utils.js'
+import { getCurrentYear, getFooterCopy } from '../utils/utils.js'
 import './Footer.css'
 
 export default function Footer() {
