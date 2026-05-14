@@ -1,0 +1,14 @@
+.App-footer {
+  padding: 1rem 1.5rem 1.25rem;
+  text-align: center;
+  background: #fff;
+}
+
+.App-footer p {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  font-weight: 400;
+  color: #000;
+}
