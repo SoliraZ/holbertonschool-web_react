@@ -29,5 +29,5 @@ li[data-priority='default'] {
 }
 
 li[data-priority='urgent'] {
-  color: #e1003c;
+  color: red;
 }
