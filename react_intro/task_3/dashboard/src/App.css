@@ -10,6 +10,14 @@ body {
   margin: 0;
 }
 
+body {
+  margin: 0;
+  color: #000;
+  background: #fff;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 0.95rem;
+}
+
 #root {
   height: 100%;
   margin: 0;
@@ -17,17 +25,12 @@ body {
   display: flex;
   flex-direction: column;
   background: #fff;
+  font-family: inherit;
 }
 
 .root-notifications {
   flex-shrink: 0;
   padding: 0.75rem 1.25rem 0;
-  background: #fff;
-}
-
-body {
-  margin: 0;
-  color: #000;
   background: #fff;
 }
 
@@ -50,8 +53,7 @@ body {
 
 .App-header h1 {
   margin: 0;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial,
-    sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 1.85rem;
   font-weight: 700;
   color: #e1003c;
@@ -65,10 +67,16 @@ body {
   border-bottom: 3px solid #e1003c;
 }
 
+.App-body p,
+.App-body label,
+.App-body input,
+.App-body button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
 .App-body p {
   margin: 0;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 0.95rem;
   font-weight: 400;
   color: #000;
 }
@@ -81,8 +89,8 @@ body {
 
 .App-footer p {
   margin: 0;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 0.95rem;
+  font-family: inherit;
+  font-size: inherit;
   font-style: italic;
   font-weight: 400;
   color: #000;
