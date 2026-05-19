@@ -42,4 +42,20 @@ describe('App', () => {
       within(wrap).getByText(/here is the list of notifications/i),
     ).toBeInTheDocument()
   })
+
+  test('renders two input elements for email and password', () => {
+    const inputs = document.querySelectorAll('input')
+    expect(inputs).toHaveLength(2)
+    expect(inputs[0]).toHaveAttribute('type', 'email')
+    expect(inputs[1]).toHaveAttribute('type', 'password')
+  })
+
+  test('renders two label elements with the text Email and Password', () => {
+    expect(screen.getByText(/email/i)).toBeInTheDocument()
+    expect(screen.getByText(/password/i)).toBeInTheDocument()
+  })
+
+  test("renders a button with the text 'OK'", () => {
+    expect(screen.getByRole('button', { name: /^ok$/i })).toBeInTheDocument()
+  })
 })
