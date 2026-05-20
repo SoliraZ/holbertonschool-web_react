@@ -6,7 +6,7 @@ describe('App', () => {
     render(<App />)
   })
 
-  test('renders h1 with text School Dashboard', () => {
+  test('renders h1 with text School dashboard', () => {
     expect(
       screen.getByRole('heading', { name: /school dashboard/i }),
     ).toBeInTheDocument()
@@ -14,16 +14,14 @@ describe('App', () => {
 
   test('body and footer paragraphs match the dashboard copy', () => {
     const body = document.querySelector('.App-body')
-    const footer = document.querySelector('.App-footer')
+    const footer = screen.getByRole('contentinfo')
     expect(
       within(body).getByText(/login to access the full dashboard/i),
     ).toBeInTheDocument()
     const year = new Date().getFullYear()
-    expect(
-      within(footer).getByText(
-        new RegExp(`copyright\\s*${year}\\s*-\\s*holberton\\s*school`, 'i'),
-      ),
-    ).toBeInTheDocument()
+    expect(footer).toHaveTextContent(
+      `Copyright ${year} - Holberton School`,
+    )
   })
 
   test('renders the holberton logo image', () => {
