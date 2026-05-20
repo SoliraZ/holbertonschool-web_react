@@ -52,6 +52,7 @@
       "/node_modules/"
     ],
     "testMatch": [
+      "<rootDir>/test_0.spec.js",
       "<rootDir>/src/**/*.test.js?(x)",
       "<rootDir>/src/**/*.spec.js"
     ]
