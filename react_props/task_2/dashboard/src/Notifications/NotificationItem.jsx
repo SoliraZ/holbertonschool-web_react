@@ -1,23 +1,31 @@
-function NotificationItem({ type, html, value }) {
-  const style = {
-    color: type === 'default' ? 'blue' : 'red',
+function NotificationItem({ type, value, html }) {
+  if (type === 'default') {
+    return (
+      <li data-notification-type={type} style={{ color: 'blue' }}>
+        {value}
+      </li>
+    )
   }
 
-  if (html) {
+  if (type === 'urgent' && html) {
     return (
       <li
         data-notification-type={type}
-        style={style}
+        style={{ color: 'red' }}
         dangerouslySetInnerHTML={{ __html: html }}
       />
     )
   }
 
-  return (
-    <li data-notification-type={type} style={style}>
-      {value}
-    </li>
-  )
+  if (type === 'urgent') {
+    return (
+      <li data-notification-type={type} style={{ color: 'red' }}>
+        {value}
+      </li>
+    )
+  }
+
+  return null
 }
 
 export default NotificationItem
