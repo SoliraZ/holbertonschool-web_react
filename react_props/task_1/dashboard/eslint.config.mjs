@@ -8,7 +8,8 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 export default defineConfig([
   globalIgnores(['dist', 'fileTransformer.js']),
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['src/**/*.{js,jsx}'],
+    ignores: ['src/utils/utils.js'],
     extends: [
       js.configs.recommended,
       react.configs.flat.recommended,
@@ -27,6 +28,39 @@ export default defineConfig([
     },
     rules: {
       'react/react-in-jsx-scope': 'off',
+    },
+  },
+  {
+    files: ['src/utils/utils.js', 'testUtilsFn.spec.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.jest,
+      },
+      sourceType: 'commonjs',
+    },
+  },
+  {
+    files: [
+      'appTest.spec.js',
+      'faviconTest.spec.js',
+      'inputFocusTest.spec.js',
+      'test_0.spec.js',
+    ],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.jest,
+      },
+      sourceType: 'module',
+      parserOptions: { ecmaFeatures: { jsx: true } },
+    },
+  },
+  {
+    files: ['vite.config.js'],
+    languageOptions: {
+      globals: globals.node,
+      sourceType: 'module',
     },
   },
 ])

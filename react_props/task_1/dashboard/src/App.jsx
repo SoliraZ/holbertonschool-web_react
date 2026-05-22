@@ -5,7 +5,7 @@ import Header from './Header/Header.jsx'
 import Login from './Login/Login.jsx'
 import Footer from './Footer/Footer.jsx'
 
-export default function App() {
+export function App() {
   return (
     <Fragment>
       <div className="root-notifications">
@@ -17,3 +17,5 @@ export default function App() {
     </Fragment>
   )
 }
+
+export default App
