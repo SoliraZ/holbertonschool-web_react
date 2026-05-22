@@ -1,11 +1,11 @@
 import HbSLogo from './assets/holberton-logo.jpg'
-import { getCurrentYear, getFooterCopy } from './utils'
+import { getCurrentYear, getFooterCopy } from './utils.js'
 import './App.css'
 import Notifications from './Notifications.jsx'
 
 function App() {
   const currentYear = getCurrentYear()
-  const footerText = getFooterCopy(true)
+  const footerText = getFooterCopy(false)
   return (
     <>
       <div className="root-notifications">
@@ -22,7 +22,7 @@ function App() {
 
       <div className="App-footer">
         <p>
-          Copyright {currentYear} - {footerText}
+          Copyright {currentYear} {footerText}
         </p>
       </div>
     </>
