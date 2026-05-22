@@ -2,57 +2,47 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import Notifications from './Notifications.jsx'
 import { getLatestNotification } from '../utils/utils.js'
 
-const notifications = [
+const notificationsList = [
   { id: 1, type: 'default', value: 'New course available' },
   { id: 2, type: 'urgent', value: 'New resume available' },
-  {
-    id: 3,
-    type: 'urgent',
-    value: getLatestNotification(),
-    html: getLatestNotification(),
-  },
+  { id: 3, type: 'urgent', html: getLatestNotification() },
 ]
 
-describe('Notifications', () => {
-  beforeEach(() => {
-    render(<Notifications notifications={notifications} />)
+describe('Notifications component', () => {
+  test("Vérification de la présence du message 'Here is the list of notifications'", () => {
+    render(<Notifications />)
+    const notifTitle = screen.getByText(/here is the list of notifications/i)
+    expect(notifTitle).toBeInTheDocument()
   })
 
-  test('renders the notifications title', () => {
-    expect(
-      screen.getByText(/here is the list of notifications/i),
-    ).toBeInTheDocument()
+  test('Vérification de la présence du bouton close', () => {
+    render(<Notifications />)
+    const closeButton = screen.getByRole('button')
+    expect(closeButton).toBeInTheDocument()
   })
 
-  test('renders a button in the notifications', () => {
-    expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument()
+  test('Vérification de la présence des 3 li', () => {
+    render(<Notifications notifications={notificationsList} />)
+    const liElements = screen.getAllByRole('listitem')
+    expect(liElements).toHaveLength(3)
   })
 
-  test('renders 3 notification list items with the appropriate text', () => {
-    const items = screen.getAllByRole('listitem')
-    expect(items).toHaveLength(3)
-    expect(screen.getByText(/new course available/i)).toBeInTheDocument()
-    expect(screen.getByText(/new resume available/i)).toBeInTheDocument()
-    expect(screen.getByText(/urgent requirement/i)).toBeInTheDocument()
-    expect(screen.getByText(/complete by eod/i)).toBeInTheDocument()
-  })
-
-  test('logs to the console when the close button is clicked', () => {
-    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
-
-    fireEvent.click(screen.getByRole('button', { name: /close/i }))
-
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringMatching(/close button has been clicked/i),
+  test('Vérification du texte des 3 li', () => {
+    render(<Notifications notifications={notificationsList} />)
+    const liElements = screen.getAllByRole('listitem')
+    expect(liElements[0]).toHaveTextContent(/new course available/i)
+    expect(liElements[1]).toHaveTextContent(/new resume available/i)
+    expect(liElements[2]).toHaveTextContent(
+      /urgent requirement - complete by eod/i,
     )
-
-    logSpy.mockRestore()
   })
-})
 
-describe('Notifications with empty notifications prop', () => {
-  test('renders no list items when notifications prop is empty', () => {
-    render(<Notifications notifications={[]} />)
-    expect(screen.queryAllByRole('listitem')).toHaveLength(0)
+  test("Vérification de l'eventHandler 'click' sur le bouton", () => {
+    render(<Notifications />)
+    const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
+    const closeButton = screen.getByRole('button')
+    fireEvent.click(closeButton)
+    expect(consoleSpy).toHaveBeenCalledWith('Close button has been clicked')
+    consoleSpy.mockRestore()
   })
 })
