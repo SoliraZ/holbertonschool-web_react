@@ -5,7 +5,12 @@ import { getLatestNotification } from '../utils/utils.js'
 const notificationsList = [
   { id: 1, type: 'default', value: 'New course available' },
   { id: 2, type: 'urgent', value: 'New resume available' },
-  { id: 3, type: 'urgent', html: getLatestNotification() },
+  {
+    id: 3,
+    type: 'urgent',
+    value: getLatestNotification(),
+    html: getLatestNotification(),
+  },
 ]
 
 describe('Notifications component', () => {
@@ -27,14 +32,27 @@ describe('Notifications component', () => {
     expect(liElements).toHaveLength(3)
   })
 
-  test('Vérification du texte des 3 li', () => {
+  test('renders 3 notification items with appropriate text and styles', () => {
     render(<Notifications notifications={notificationsList} />)
-    const liElements = screen.getAllByRole('listitem')
-    expect(liElements[0]).toHaveTextContent(/new course available/i)
-    expect(liElements[1]).toHaveTextContent(/new resume available/i)
-    expect(liElements[2]).toHaveTextContent(
-      /urgent requirement - complete by eod/i,
-    )
+    const items = screen.getAllByRole('listitem')
+
+    expect(items).toHaveLength(3)
+
+    expect(items[0]).toHaveTextContent('New course available')
+    expect(items[0]).toHaveAttribute('data-notification-type', 'default')
+    expect(items[0]).toHaveStyle({ color: 'blue' })
+
+    expect(items[1]).toHaveTextContent('New resume available')
+    expect(items[1]).toHaveAttribute('data-notification-type', 'urgent')
+    expect(items[1]).toHaveStyle({ color: 'red' })
+
+    expect(items[2]).toHaveTextContent('Urgent requirement - complete by EOD')
+    expect(items[2]).toHaveAttribute('data-notification-type', 'urgent')
+    expect(items[2]).toHaveStyle({ color: 'red' })
+
+    const strongElement = items[2].querySelector('strong')
+    expect(strongElement).toBeInTheDocument()
+    expect(strongElement).toHaveTextContent('Urgent requirement')
   })
 
   test("Vérification de l'eventHandler 'click' sur le bouton", () => {
