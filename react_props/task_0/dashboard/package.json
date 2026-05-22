@@ -2,7 +2,6 @@
   "name": "dashboard",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -19,6 +18,7 @@
     "@babel/preset-env": "7.24.8",
     "@babel/preset-react": "7.24.7",
     "@eslint/js": "^9.15.0",
+    "@rollup/plugin-commonjs": "^29.0.2",
     "@testing-library/jest-dom": "6.4.6",
     "@testing-library/react": "16.0.0",
     "@testing-library/user-event": "^14.5.2",
@@ -38,7 +38,9 @@
   },
   "jest": {
     "testEnvironment": "jsdom",
-    "setupFilesAfterEnv": ["<rootDir>/setupTests.js"],
+    "setupFilesAfterEnv": [
+      "<rootDir>/setupTests.js"
+    ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileTransformer.js",
       "^.+\\.(css|less|scss|sass)$": "identity-obj-proxy"
@@ -46,8 +48,11 @@
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     },
-    "transformIgnorePatterns": ["/node_modules/"],
+    "transformIgnorePatterns": [
+      "/node_modules/"
+    ],
     "testMatch": [
+      "<rootDir>/*.spec.js",
       "<rootDir>/src/**/*.test.js?(x)",
       "<rootDir>/src/**/*.spec.js"
     ]
