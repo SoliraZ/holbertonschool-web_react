@@ -25,9 +25,9 @@
 }
 
 li[data-priority='default'] {
-  color: blue;
+  color: rgb(0, 0, 255);
 }
 
 li[data-priority='urgent'] {
-  color: red;
+  color: rgb(255, 0, 0);
 }
