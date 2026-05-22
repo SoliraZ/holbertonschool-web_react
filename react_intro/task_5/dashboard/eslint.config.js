@@ -29,4 +29,13 @@ export default defineConfig([
       'react/react-in-jsx-scope': 'off',
     },
   },
+  {
+    files: ['*.spec.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.jest,
+      },
+    },
+  },
 ])
