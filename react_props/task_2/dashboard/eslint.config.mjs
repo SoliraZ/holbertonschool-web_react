@@ -32,13 +32,13 @@ export default defineConfig([
     },
   },
   {
-    files: ['src/utils/utils.js', 'testUtilsFn.spec.js'],
+    files: ['testUtilsFn.spec.js'],
     languageOptions: {
       globals: {
         ...globals.node,
         ...globals.jest,
       },
-      sourceType: 'commonjs',
+      sourceType: 'module',
     },
   },
   {

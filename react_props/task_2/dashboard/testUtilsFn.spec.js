@@ -1,4 +1,4 @@
-const { getCurrentYear, getFooterCopy } = require('./src/utils/utils.js')
+import { getCurrentYear, getFooterCopy } from './src/utils/utils.js'
 
 describe('utils functions (checker)', () => {
   test('getCurrentYear returns the current year', () => {

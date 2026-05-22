@@ -1,6 +1,6 @@
-const path = require('node:path')
+import path from 'node:path'
 
-module.exports = {
+export default {
   process(_sourceText, sourcePath) {
     return {
       code: `module.exports = ${JSON.stringify(path.basename(sourcePath))};`,
