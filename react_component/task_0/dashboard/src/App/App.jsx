@@ -1,4 +1,4 @@
-import { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { getLatestNotification } from '../utils/utils.js'
 import './App.css'
 import Notifications from '../Notifications/Notifications.jsx'
@@ -6,7 +6,7 @@ import Header from '../Header/Header.jsx'
 import Login from '../Login/Login.jsx'
 import Footer from '../Footer/Footer.jsx'
 
-class App extends Component {
+class App extends React.Component {
   render() {
     const notificationsList = [
       { id: 1, type: 'default', value: 'New course available' },
