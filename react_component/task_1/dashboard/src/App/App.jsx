@@ -20,7 +20,9 @@ class App extends React.Component {
   }
 
   handleKeyDown = (event) => {
-    if (event.ctrlKey && event.key && event.key === 'h') {
+    const keysPressed = { h: true }
+
+    if (event.ctrlKey && event.key in keysPressed) {
       alert('Logging you out')
       this.props.logOut()
     }
