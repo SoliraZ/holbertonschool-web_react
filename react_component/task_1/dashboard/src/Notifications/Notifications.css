@@ -1,0 +1,25 @@
+.notification-items {
+  border: #e1003c dotted 2.5px;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 0.95rem;
+}
+
+.notification-items p {
+  margin-left: 1rem;
+  font-family: inherit;
+}
+
+.notification-items button img {
+  width: 70%;
+}
+
+.notification-items ul {
+  width: 100%;
+  font-family: inherit;
+}
+
+.notification-items li {
+  font-family: inherit;
+}
