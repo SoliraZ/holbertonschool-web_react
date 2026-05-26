@@ -7,10 +7,6 @@ import Login from '../Login/Login.jsx'
 import Footer from '../Footer/Footer.jsx'
 
 class App extends React.Component {
-  static defaultProps = {
-    logOut: () => {},
-  }
-
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown)
   }
@@ -51,6 +47,10 @@ class App extends React.Component {
       </Fragment>
     )
   }
+}
+
+App.defaultProps = {
+  logOut: () => {},
 }
 
 export default App
