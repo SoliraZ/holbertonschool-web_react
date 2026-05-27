@@ -7,9 +7,11 @@ afterEach(() => {
 
 test('should call logOut when Ctrl+h is pressed', () => {
   const logOut = jest.fn()
+  const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {})
   render(<App logOut={logOut} />)
   fireEvent.keyDown(document, { key: 'h', ctrlKey: true })
   expect(logOut).toHaveBeenCalledTimes(1)
+  alertSpy.mockRestore()
 })
 
 test('should call alert with Logging you out when Ctrl+h is pressed', () => {
