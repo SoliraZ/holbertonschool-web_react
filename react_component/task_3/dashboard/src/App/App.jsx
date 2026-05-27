@@ -5,6 +5,9 @@ import Notifications from '../Notifications/Notifications.jsx'
 import Header from '../Header/Header.jsx'
 import Login from '../Login/Login.jsx'
 import Footer from '../Footer/Footer.jsx'
+import CourseList from '../CourseList/CourseList.jsx'
+import BodySection from '../BodySection/BodySection.jsx'
+import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom.jsx'
 
 class App extends React.Component {
   componentDidMount() {
@@ -25,6 +28,7 @@ class App extends React.Component {
   }
 
   render() {
+    const { isLoggedIn } = this.props
     const notificationsList = [
       { id: 1, type: 'default', value: 'New course available' },
       { id: 2, type: 'urgent', value: 'New resume available' },
@@ -36,13 +40,30 @@ class App extends React.Component {
       },
     ]
 
+    const coursesList = [
+      { id: 1, name: 'ES6', credit: 60 },
+      { id: 2, name: 'Webpack', credit: 20 },
+      { id: 3, name: 'React', credit: 40 },
+    ]
+
     return (
       <Fragment>
         <div className="root-notifications">
           <Notifications notifications={notificationsList} />
         </div>
         <Header />
-        <Login />
+        {isLoggedIn ? (
+          <BodySectionWithMarginBottom title="Course list">
+            <CourseList courses={coursesList} />
+          </BodySectionWithMarginBottom>
+        ) : (
+          <BodySectionWithMarginBottom title="Log in to continue">
+            <Login />
+          </BodySectionWithMarginBottom>
+        )}
+        <BodySection title="News from the School">
+          <p>Holberton School News goes here</p>
+        </BodySection>
         <Footer />
       </Fragment>
     )
@@ -51,6 +72,7 @@ class App extends React.Component {
 
 App.defaultProps = {
   logOut: () => {},
+  isLoggedIn: false,
 }
 
 export default App

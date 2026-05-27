@@ -64,4 +64,14 @@ describe('App', () => {
     expect(within(wrap).getByText(/new resume available/i)).toBeInTheDocument()
     expect(within(wrap).getByText(/urgent requirement/i)).toBeInTheDocument()
   })
+
+  test('displays News from the School title and paragraph by default', () => {
+    render(<App />)
+    expect(
+      screen.getByRole('heading', { name: /news from the school/i }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(/holberton school news goes here/i),
+    ).toBeInTheDocument()
+  })
 })
