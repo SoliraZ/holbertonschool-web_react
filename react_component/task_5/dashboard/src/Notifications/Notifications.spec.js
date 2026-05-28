@@ -75,3 +75,43 @@ test('should call markAsRead and log notification id when a notification item is
   expect(logSpy).toHaveBeenCalledWith('Notification 2 has been marked as read')
   logSpy.mockRestore()
 })
+
+test("doesn't re-render if notifications prop length remains the same", () => {
+  const initialNotifications = [
+    { id: 1, type: 'default', value: 'first notification' },
+    { id: 2, type: 'urgent', value: 'second notification' },
+  ]
+  const sameLengthNotifications = [
+    { id: 1, type: 'default', value: 'updated first notification' },
+    { id: 2, type: 'urgent', value: 'updated second notification' },
+  ]
+
+  const { rerender } = render(
+    <Notifications notifications={initialNotifications} />,
+  )
+  rerender(<Notifications notifications={sameLengthNotifications} />)
+
+  expect(screen.getByText('first notification')).toBeInTheDocument()
+  expect(screen.getByText('second notification')).toBeInTheDocument()
+  expect(screen.queryByText('updated first notification')).not.toBeInTheDocument()
+  expect(screen.queryByText('updated second notification')).not.toBeInTheDocument()
+})
+
+test('re-renders when notifications prop length changes', () => {
+  const initialNotifications = [
+    { id: 1, type: 'default', value: 'first notification' },
+    { id: 2, type: 'urgent', value: 'second notification' },
+  ]
+  const longerNotifications = [
+    { id: 1, type: 'default', value: 'first notification' },
+    { id: 2, type: 'urgent', value: 'second notification' },
+    { id: 3, type: 'default', value: 'third notification' },
+  ]
+
+  const { rerender } = render(
+    <Notifications notifications={initialNotifications} />,
+  )
+  rerender(<Notifications notifications={longerNotifications} />)
+
+  expect(screen.getByText('third notification')).toBeInTheDocument()
+})
