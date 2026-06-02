@@ -6,20 +6,24 @@ afterEach(() => {
 })
 
 test('should call logOut when Ctrl+h is pressed', () => {
-  const logOut = jest.fn()
-  const alert = jest.spyOn(window, 'alert').mockImplementation(() => {})
-  render(<App logOut={logOut} />)
+  const logOutSpy = jest.fn()
+  const logOutAlertSpy = jest
+    .spyOn(window, 'alert')
+    .mockImplementation(() => {})
+  render(<App isLoggedIn={true} logOut={logOutSpy} />)
   fireEvent.keyDown(document, { key: 'h', ctrlKey: true })
-  expect(logOut).toHaveBeenCalledTimes(1)
-  alert.mockRestore()
+  expect(logOutSpy).toHaveBeenCalledTimes(1)
+  logOutAlertSpy.mockRestore()
 })
 
 test('should call alert with Logging you out when Ctrl+h is pressed', () => {
-  const alert = jest.spyOn(window, 'alert').mockImplementation(() => {})
-  render(<App />)
+  const logOutAlertSpy = jest
+    .spyOn(window, 'alert')
+    .mockImplementation(() => {})
+  render(<App isLoggedIn={true} />)
   fireEvent.keyDown(document, { key: 'h', ctrlKey: true })
-  expect(alert).toHaveBeenCalledWith('Logging you out')
-  alert.mockRestore()
+  expect(logOutAlertSpy).toHaveBeenCalledWith('Logging you out')
+  logOutAlertSpy.mockRestore()
 })
 
 describe('App', () => {
