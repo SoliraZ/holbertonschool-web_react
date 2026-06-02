@@ -46,35 +46,37 @@ class App extends React.Component {
     ]
 
     return (
-      <div className="relative flex min-h-screen w-full flex-col px-4 sm:px-6 md:px-8">
-        <Notifications notifications={notificationsList} />
-        <div className="relative z-0 flex min-h-0 flex-1 flex-col">
-          <Header />
-          <main className="flex flex-1 flex-col">
-            {isLoggedIn ? (
-              <BodySectionWithMarginBottom title="Course list">
-                <CourseList courses={coursesList} />
-              </BodySectionWithMarginBottom>
-            ) : (
-              <BodySectionWithMarginBottom title="Log in to continue">
-                <Login />
-              </BodySectionWithMarginBottom>
-            )}
-            <BodySection title="News from the School">
-              <>
-                <p>
-                  ipsum Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. Similique, asperiores architecto blanditiis fuga
-                  doloribus sit illum aliquid ea distinctio minus accusantium,
-                  impedit quo voluptatibus ut magni dicta. Recusandae, quia
-                  dicta?
-                </p>
-                <p>Holberton School News goes here</p>
-              </>
-            </BodySection>
-          </main>
+      <div className="flex min-h-screen w-full flex-col px-4 sm:px-6 md:px-8">
+        <Notifications
+          notifications={notificationsList}
+          displayDrawer={false}
+        />
+        <Header />
+        <main className="flex flex-1 flex-col">
+          {isLoggedIn ? (
+            <BodySectionWithMarginBottom title="Course list">
+              <CourseList courses={coursesList} />
+            </BodySectionWithMarginBottom>
+          ) : (
+            <BodySectionWithMarginBottom title="Log in to continue">
+              <Login />
+            </BodySectionWithMarginBottom>
+          )}
           <Footer />
-        </div>
+          <BodySectionWithMarginBottom />
+          <BodySection title="News from the School">
+            <>
+              <p>
+                ipsum Lorem ipsum dolor sit amet consectetur, adipisicing
+                elit. Similique, asperiores architecto blanditiis fuga
+                doloribus sit illum aliquid ea distinctio minus accusantium,
+                impedit quo voluptatibus ut magni dicta. Recusandae, quia
+                dicta?
+              </p>
+              <p>Holberton School News goes here</p>
+            </>
+          </BodySection>
+        </main>
       </div>
     )
   }

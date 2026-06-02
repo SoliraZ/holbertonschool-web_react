@@ -57,12 +57,8 @@ describe('App', () => {
     const wrap = document.querySelector('.root-notifications')
     expect(wrap).toBeInTheDocument()
     expect(
-      within(wrap).getByText(/here is the list of notifications/i),
+      within(wrap).getByText(/your notifications/i),
     ).toBeInTheDocument()
-    expect(within(wrap).getAllByRole('listitem')).toHaveLength(3)
-    expect(within(wrap).getByText(/new course available/i)).toBeInTheDocument()
-    expect(within(wrap).getByText(/new resume available/i)).toBeInTheDocument()
-    expect(within(wrap).getByText(/urgent requirement/i)).toBeInTheDocument()
   })
 
   test('displays News from the School title and paragraph by default', () => {

@@ -4,10 +4,10 @@ import CourseListRow from './CourseListRow.jsx'
 function CourseList({ courses = [] }) {
   return (
     <>
-      <div className="mx-auto my-8 w-4/5 max-w-4xl overflow-x-auto px-4 sm:px-0">
+      <div className="mx-auto my-8 w-full max-w-4xl overflow-x-auto px-4 sm:px-0">
         <table
           id="CourseList"
-          className="w-full min-w-[280px] table-fixed border-collapse"
+          className="w-full min-w-[280px] border-collapse"
         >
           <thead>
             {courses.length === 0 ? (
