@@ -2,12 +2,12 @@ import WithLogging from '../HOC/WithLogging.jsx'
 
 function Login() {
   return (
-    <div className="App-body h-full border-t-[3px] border-[var(--main-color)] bg-white pt-5 max-[640px]:ml-0 max-[640px]:pl-4 sm:ml-5 sm:px-5 sm:py-7">
+    <div className="App-body h-full w-full border-t-[3px] border-[var(--main-color)] bg-white pt-5 max-[640px]:ml-0 max-[640px]:pl-4 sm:ml-5 sm:px-5 sm:py-7">
       <p className="m-0 mb-4 text-[0.95rem] font-normal text-black">
         Login to access the full dashboard
       </p>
 
-      <form className="flex max-w-md flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-2">
+      <form className="flex w-full max-w-md flex-col gap-3 max-[640px]:w-full sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-2">
         <label htmlFor="email" className="shrink-0 sm:mr-2">
           Email:
         </label>
@@ -16,7 +16,7 @@ function Login() {
           name="email"
           id="email"
           autoComplete="email"
-          className="w-full min-w-0 rounded border border-gray-300 p-2 sm:mr-4 sm:w-auto max-[640px]:max-w-full"
+          className="w-full min-w-0 rounded border border-gray-300 p-2 max-[640px]:max-w-full sm:mr-4 sm:w-auto"
         />
 
         <label htmlFor="password" className="shrink-0 sm:mr-2">
@@ -27,7 +27,7 @@ function Login() {
           name="password"
           id="password"
           autoComplete="current-password"
-          className="w-full min-w-0 rounded border border-gray-300 p-2 sm:mr-4 sm:w-auto max-[640px]:max-w-full"
+          className="w-full min-w-0 rounded border border-gray-300 p-2 max-[640px]:max-w-full sm:mr-4 sm:w-auto"
         />
       </form>
       <button

@@ -23,12 +23,22 @@ class Notifications extends React.Component {
     const { notifications } = this.props
     const isEmpty = notifications.length === 0
 
+    const rootClasses = isEmpty
+      ? 'root-notifications fixed top-0 right-0 z-50 flex w-[min(600px,25vw)] min-w-[200px] flex-col items-end max-[912px]:inset-0 max-[912px]:h-full max-[912px]:w-full max-[912px]:min-w-0'
+      : 'root-notifications fixed top-0 right-0 z-50 flex w-[min(600px,25vw)] min-w-[200px] flex-col items-end max-[912px]:pointer-events-none'
+
+    const titleClasses = isEmpty
+      ? 'notification-title w-full min-w-[200px] max-w-[600px] text-right max-[912px]:hidden'
+      : 'notification-title w-full min-w-[200px] max-w-[600px] text-right max-[912px]:max-w-none max-[912px]:pointer-events-auto'
+
+    const panelClasses = isEmpty
+      ? 'notification-items relative w-full min-w-[200px] max-w-[600px] border border-dashed border-[var(--main-color)] p-[6px] max-[912px]:m-0 max-[912px]:h-full max-[912px]:min-h-0 max-[912px]:max-w-none max-[912px]:flex-1 max-[912px]:overflow-auto max-[912px]:p-3'
+      : 'notification-items relative w-full min-w-[200px] max-w-[600px] border border-dashed border-[var(--main-color)] p-[6px] max-[912px]:m-3 max-[912px]:min-w-0 max-[912px]:max-w-none max-[912px]:flex-1 max-[912px]:overflow-auto max-[912px]:p-3 max-[912px]:pointer-events-auto max-[912px]:relative'
+
     return (
-      <div className="root-notifications fixed top-0 right-0 z-50 flex w-[min(600px,25vw)] min-w-[200px] flex-col items-end max-[912px]:inset-0 max-[912px]:h-full max-[912px]:w-full max-[912px]:min-w-0">
-        <div className="notification-title w-full min-w-[200px] max-w-[600px] text-right max-[912px]:max-w-none">
-          Your notifications
-        </div>
-        <div className="notification-items relative w-full min-w-[200px] max-w-[600px] border border-dashed border-[var(--main-color)] p-[6px] max-[912px]:m-3 max-[912px]:min-w-0 max-[912px]:max-w-none max-[912px]:flex-1 max-[912px]:overflow-auto max-[912px]:p-3">
+      <div className={rootClasses}>
+        <div className={titleClasses}>Your notifications</div>
+        <div className={panelClasses}>
           {isEmpty ? (
             <p>No new notification for now</p>
           ) : (
