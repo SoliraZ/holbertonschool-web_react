@@ -62,8 +62,6 @@ class App extends React.Component {
               <Login />
             </BodySectionWithMarginBottom>
           )}
-          <Footer />
-          <BodySectionWithMarginBottom />
           <BodySection title="News from the School">
             <p>
               ipsum Lorem ipsum dolor sit amet consectetur, adipisicing elit.
@@ -73,6 +71,7 @@ class App extends React.Component {
             </p>
             <p>Holberton School News goes here</p>
           </BodySection>
+          <Footer />
         </main>
       </div>
     )

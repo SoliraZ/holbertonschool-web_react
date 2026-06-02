@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="App-footer mt-auto flex justify-center border-t-2 border-[var(--main-color)] py-4 text-center">
       <p className="text-xs italic sm:text-sm md:text-base">
-        Copyright {getCurrentYear()} - {getFooterCopy(true)}
+        Copyright {getCurrentYear()} - {getFooterCopy(false)}
       </p>
     </footer>
   )
