@@ -4,7 +4,7 @@ import CourseListRow from './CourseListRow.jsx'
 function CourseList({ courses = [] }) {
   return (
     <div className="App-body">
-      <div className="mx-auto mt-8 w-4/5">
+      <div className="mx-auto mt-8 w-[80vw]">
         <table className="w-full">
           {courses.length === 0 ? (
             <thead>
