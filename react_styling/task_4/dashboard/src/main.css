@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-sans: 'Roboto', sans-serif;
   --color-table-header: #deb5b5;
   --color-table-rows: #CDCDCD;
   --main-color: #e1003c;
@@ -20,7 +19,6 @@
   body {
     height: 100%;
     margin: 0;
-    font-family: var(--font-sans);
     color: #000;
     background: #fff;
   }

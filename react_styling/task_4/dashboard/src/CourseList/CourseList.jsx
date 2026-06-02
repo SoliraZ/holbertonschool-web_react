@@ -35,7 +35,7 @@ function CourseList({ courses = [] }) {
                 key={course.id}
                 isHeader={false}
                 textFirstCell={course.name}
-                textSecondCell={String(course.credit)}
+                textSecondCell={course.credit}
               />
             ))}
           </tbody>

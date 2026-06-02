@@ -46,7 +46,7 @@ class App extends React.Component {
     ]
 
     return (
-      <div className="flex min-h-screen w-full flex-col px-4 sm:px-6 md:px-8">
+      <div className="min-h-screen flex w-full flex-col px-4 sm:px-6 md:px-8">
         <Notifications
           notifications={notificationsList}
           displayDrawer={false}
@@ -65,16 +65,13 @@ class App extends React.Component {
           <Footer />
           <BodySectionWithMarginBottom />
           <BodySection title="News from the School">
-            <>
-              <p>
-                ipsum Lorem ipsum dolor sit amet consectetur, adipisicing
-                elit. Similique, asperiores architecto blanditiis fuga
-                doloribus sit illum aliquid ea distinctio minus accusantium,
-                impedit quo voluptatibus ut magni dicta. Recusandae, quia
-                dicta?
-              </p>
-              <p>Holberton School News goes here</p>
-            </>
+            <p>
+              ipsum Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Similique, asperiores architecto blanditiis fuga doloribus sit
+              illum aliquid ea distinctio minus accusantium, impedit quo
+              voluptatibus ut magni dicta. Recusandae, quia dicta?
+            </p>
+            <p>Holberton School News goes here</p>
           </BodySection>
         </main>
       </div>
