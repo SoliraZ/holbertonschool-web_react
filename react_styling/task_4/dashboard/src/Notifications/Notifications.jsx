@@ -24,8 +24,12 @@ class Notifications extends React.Component {
     const { notifications, displayDrawer } = this.props
     const isEmpty = notifications.length === 0
 
+    const rootClasses = displayDrawer
+      ? 'root-notifications fixed top-0 right-0 z-50 flex w-[min(600px,25vw)] min-w-[200px] flex-col items-end max-[912px]:inset-0 max-[912px]:h-full max-[912px]:w-full max-[912px]:min-w-0'
+      : 'root-notifications fixed top-0 right-0 z-50 flex flex-col items-end'
+
     return (
-      <div className="root-notifications fixed top-0 right-0 flex w-[min(600px,25vw)] min-w-[200px] flex-col items-end max-[912px]:inset-0 max-[912px]:h-full max-[912px]:w-full max-[912px]:min-w-0 max-[912px]:z-50">
+      <div className={rootClasses}>
         <div className="notification-title w-full min-w-[200px] max-w-[600px] text-right max-[912px]:max-w-none">
           Your notifications
         </div>
