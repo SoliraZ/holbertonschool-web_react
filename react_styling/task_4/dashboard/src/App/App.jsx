@@ -47,12 +47,9 @@ class App extends React.Component {
 
     return (
       <div className="min-h-screen flex w-full flex-col px-4 sm:px-6 md:px-8">
-        <Notifications
-          notifications={notificationsList}
-          displayDrawer={false}
-        />
+        <Notifications notifications={notificationsList} />
         <Header />
-        <main className="flex flex-1 flex-col">
+        <main className="flex-1 flex flex-col">
           {isLoggedIn ? (
             <BodySectionWithMarginBottom title="Course list">
               <CourseList courses={coursesList} />
