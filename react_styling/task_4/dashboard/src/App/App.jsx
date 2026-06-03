@@ -49,7 +49,7 @@ class App extends React.Component {
       <div className="min-h-screen flex w-full flex-col px-4 sm:px-6 md:px-8">
         <Notifications notifications={notificationsList} />
         <Header />
-        <main className="flex-1 flex flex-col">
+        <main className="App-body flex-1 flex flex-col">
           {isLoggedIn ? (
             <BodySectionWithMarginBottom title="Course list">
               <CourseList courses={coursesList} />
