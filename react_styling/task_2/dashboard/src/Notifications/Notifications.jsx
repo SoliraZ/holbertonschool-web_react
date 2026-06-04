@@ -50,7 +50,7 @@ class Notifications extends React.Component {
               >
                 <img src={closeButton} alt="" />
               </button>
-              <ul className="list-square">
+              <ul className="list-[square] list-inside">
                 {notifications.map((notification) => (
                   <NotificationItem
                     key={notification.id}
