@@ -47,7 +47,7 @@ class App extends React.Component {
 
     return (
       <div className="flex min-h-screen w-full flex-col">
-        <div className="root-notifications fixed top-0 right-0 z-50 w-1/4">
+        <div className="root-notifications fixed top-0 right-4 z-50 w-1/4">
           <Notifications notifications={notificationsList} />
         </div>
         <Header />
