@@ -3,9 +3,9 @@ import CourseListRow from './CourseListRow.jsx'
 
 function CourseList({ courses = [] }) {
   return (
-    <>
+    <div className="App-body">
       <div className="mx-auto my-8 w-4/5">
-        <table id="CourseList" className="w-full table-fixed border-collapse">
+        <table id="CourseList" className="w-full border-collapse">
           <thead>
             {courses.length === 0 ? (
               <CourseListRow
@@ -38,7 +38,7 @@ function CourseList({ courses = [] }) {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   )
 }
 
