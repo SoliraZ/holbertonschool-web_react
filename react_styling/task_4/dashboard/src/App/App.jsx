@@ -46,10 +46,10 @@ class App extends React.Component {
     ]
 
     return (
-      <div className="min-h-screen flex w-full flex-col px-4 sm:px-6 md:px-8">
+      <div className="flex min-h-screen flex-col">
         <Notifications notifications={notificationsList} />
         <Header />
-        <main className="App-body flex-1 flex flex-col">
+        <main className="App-body flex flex-1 flex-col">
           {isLoggedIn ? (
             <BodySectionWithMarginBottom title="Course list">
               <CourseList courses={coursesList} />
@@ -59,17 +59,19 @@ class App extends React.Component {
               <Login />
             </BodySectionWithMarginBottom>
           )}
-          <BodySection title="News from the School">
-            <p>
-              ipsum Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Similique, asperiores architecto blanditiis fuga doloribus sit
-              illum aliquid ea distinctio minus accusantium, impedit quo
-              voluptatibus ut magni dicta. Recusandae, quia dicta?
-            </p>
-            <p>Holberton School News goes here</p>
-          </BodySection>
-          <Footer />
+          <div className="mt-auto">
+            <BodySection title="News from the School">
+              <p>
+                ipsum Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Similique, asperiores architecto blanditiis fuga doloribus sit
+                illum aliquid ea distinctio minus accusantium, impedit quo
+                voluptatibus ut magni dicta. Recusandae, quia dicta?
+              </p>
+              <p>Holberton School News goes here</p>
+            </BodySection>
+          </div>
         </main>
+        <Footer />
       </div>
     )
   }

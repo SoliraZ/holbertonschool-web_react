@@ -5,7 +5,7 @@ function CourseListRow({
 }) {
   if (isHeader) {
     return (
-      <tr className="bg-table-header opacity-[66%]">
+      <tr className="bg-table-header/[66%]">
         {textSecondCell === null ? (
           <th className="border border-gray-400" colSpan={2}>
             {textFirstCell}
@@ -21,7 +21,7 @@ function CourseListRow({
   }
 
   return (
-    <tr className="bg-table-rows opacity-[45%]">
+    <tr className="bg-table-rows/[45%]">
       <td className="border border-gray-400 pl-[8px]">{textFirstCell}</td>
       <td className="border border-gray-400 pl-[8px]">{textSecondCell}</td>
     </tr>
