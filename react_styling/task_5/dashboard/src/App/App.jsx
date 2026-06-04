@@ -47,7 +47,7 @@ class App extends React.Component {
 
     return (
       <div className="flex min-h-screen flex-col">
-        <Notifications notifications={notificationsList} />
+        <Notifications notifications={notificationsList} displayDrawer={false} />
         <Header />
         <main className="App-body flex flex-1 flex-col">
           {isLoggedIn ? (
