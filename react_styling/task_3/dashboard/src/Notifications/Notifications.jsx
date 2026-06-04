@@ -25,10 +25,10 @@ class Notifications extends React.Component {
 
     return (
       <>
-        <div className="notification-title text-right w-1/4 ml-auto">
+        <div className="notification-title text-right w-full">
           Your notifications
         </div>
-        <div className="notification-items relative border border-dashed border-[var(--main-color)] w-1/4 ml-auto p-1.5">
+        <div className="notification-items relative border-2 border-dashed border-[var(--main-color)] w-full p-1.5">
           {isEmpty ? (
             <p>No new notification for now</p>
           ) : (
@@ -38,19 +38,21 @@ class Notifications extends React.Component {
                 type="button"
                 aria-label="Close"
                 style={{
-                  width: '8px',
-                  height: '8px',
+                  width: '20px',
+                  height: '20px',
                   border: '0px',
                   background: 'none',
                   position: 'absolute',
-                  top: '10px',
-                  right: '20px',
+                  top: '6px',
+                  right: '6px',
+                  cursor: 'pointer',
+                  padding: '0',
                 }}
                 onClick={this.handleClick}
               >
-                <img src={closeButton} alt="" />
+                <img src={closeButton} alt="" style={{ width: '100%', height: '100%' }} />
               </button>
-              <ul className="list-square">
+              <ul className="list-[square] list-inside">
                 {notifications.map((notification) => (
                   <NotificationItem
                     key={notification.id}

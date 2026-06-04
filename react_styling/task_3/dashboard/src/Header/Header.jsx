@@ -2,7 +2,7 @@ import holbertonLogo from '../assets/holberton-logo.jpg'
 
 export default function Header() {
   return (
-    <header className="App-header flex flex-row items-center gap-5 px-5 py-4 bg-white border-b-[3px] border-[var(--main-color)]">
+    <header className="App-header flex flex-row items-center gap-5 px-5 py-4 bg-white">
       <img
         src={holbertonLogo}
         alt="holberton logo"

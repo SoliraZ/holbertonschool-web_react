@@ -47,7 +47,7 @@ class App extends React.Component {
 
     return (
       <div className="flex min-h-screen w-full flex-col">
-        <div className="root-notifications shrink-0 px-5 pt-3">
+        <div className="root-notifications fixed top-0 right-0 z-50 w-1/4">
           <Notifications notifications={notificationsList} />
         </div>
         <Header />
@@ -61,9 +61,11 @@ class App extends React.Component {
               <Login />
             </BodySectionWithMarginBottom>
           )}
-          <BodySection title="News from the School">
-            <p>Holberton School News goes here</p>
-          </BodySection>
+          <div className="mt-auto">
+            <BodySection title="News from the School">
+              <p>Holberton School News goes here</p>
+            </BodySection>
+          </div>
         </main>
         <Footer />
       </div>
