@@ -28,7 +28,7 @@ class Notifications extends React.Component {
         <div className="notification-title text-right w-1/4 ml-auto">
           Your notifications
         </div>
-        <div className="notification-items relative border border-dashed border-[var(--main-color)] w-1/4 ml-auto p-1.5">
+        <div className="notification-items relative border-2 border-dashed border-[var(--main-color)] w-1/4 ml-auto p-1.5">
           {isEmpty ? (
             <p>No new notification for now</p>
           ) : (
