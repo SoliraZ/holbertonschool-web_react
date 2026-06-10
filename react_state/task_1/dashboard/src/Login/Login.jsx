@@ -10,31 +10,32 @@ class Login extends React.Component {
       password: '',
       enableSubmit: false,
     }
-  }
-
-  validateForm = (email, password) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return (
-      email !== '' &&
-      password !== '' &&
-      emailRegex.test(email) &&
-      password.length >= 8
-    )
+    this.emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
   }
 
   handleChangeEmail = (event) => {
     const email = event.target.value
+    const { password } = this.state
     this.setState({
       email,
-      enableSubmit: this.validateForm(email, this.state.password),
+      enableSubmit:
+        email !== '' &&
+        password !== '' &&
+        this.emailRegex.test(email) &&
+        password.length >= 8,
     })
   }
 
   handleChangePassword = (event) => {
     const password = event.target.value
+    const { email } = this.state
     this.setState({
       password,
-      enableSubmit: this.validateForm(this.state.email, password),
+      enableSubmit:
+        email !== '' &&
+        password !== '' &&
+        this.emailRegex.test(email) &&
+        password.length >= 8,
     })
   }
 
