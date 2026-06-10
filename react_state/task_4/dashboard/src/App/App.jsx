@@ -9,6 +9,23 @@ import CourseList from '../CourseList/CourseList.jsx'
 import BodySection from '../BodySection/BodySection.jsx'
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom.jsx'
 
+const notificationsList = [
+  { id: 1, type: 'default', value: 'New course available' },
+  { id: 2, type: 'urgent', value: 'New resume available' },
+  {
+    id: 3,
+    type: 'urgent',
+    value: 'Urgent requirement - complete by EOD',
+    html: getLatestNotification(),
+  },
+]
+
+const coursesList = [
+  { id: 1, name: 'ES6', credit: 60 },
+  { id: 2, name: 'Webpack', credit: 20 },
+  { id: 3, name: 'React', credit: 40 },
+]
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -17,26 +34,11 @@ class App extends React.Component {
       password: '',
       isLoggedIn: false,
     }
-    const notifications = [
-      { id: 1, type: 'default', value: 'New course available' },
-      { id: 2, type: 'urgent', value: 'New resume available' },
-      {
-        id: 3,
-        type: 'urgent',
-        value: 'Urgent requirement - complete by EOD',
-        html: getLatestNotification(),
-      },
-    ]
-    const courses = [
-      { id: 1, name: 'ES6', credit: 60 },
-      { id: 2, name: 'Webpack', credit: 20 },
-      { id: 3, name: 'React', credit: 40 },
-    ]
     this.state = {
       displayDrawer: false,
       user,
-      notifications,
-      courses,
+      notifications: notificationsList,
+      courses: coursesList,
       contextValue: {
         user,
         logOut: this.logOut,
