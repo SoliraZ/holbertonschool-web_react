@@ -1,6 +1,15 @@
 import closeButton from '../assets/close-button.png'
 import NotificationItem from './NotificationItem.jsx'
-import './Notifications.css'
+
+const closeButtonStyle = {
+  width: '1.75rem',
+  height: '1rem',
+  marginTop: '0.25rem',
+  marginLeft: 'auto',
+  background: 'none',
+  border: 'none',
+  cursor: 'pointer',
+}
 
 function Notifications({ notifications = [] }) {
   const handleClick = () => {
@@ -13,15 +22,7 @@ function Notifications({ notifications = [] }) {
       <button
         type="button"
         aria-label="Close"
-        style={{
-          width: '1.75rem',
-          height: '1rem',
-          marginTop: '0.25rem',
-          marginLeft: 'auto',
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-        }}
+        style={closeButtonStyle}
         onClick={handleClick}
       >
         <img src={closeButton} alt="" />

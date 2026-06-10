@@ -1,12 +1,17 @@
+import React from 'react'
 import { getCurrentYear, getFooterCopy } from '../utils/utils.js'
 import './Footer.css'
 
-export default function Footer() {
-  return (
-    <div className="App-footer">
-      <p>
-        Copyright {getCurrentYear()} - {getFooterCopy(true)}
-      </p>
-    </div>
-  )
+class Footer extends React.Component {
+  render() {
+    return (
+      <div className="App-footer">
+        <p>
+          Copyright {getCurrentYear()} - {getFooterCopy(true)}
+        </p>
+      </div>
+    )
+  }
 }
+
+export default Footer

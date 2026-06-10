@@ -38,9 +38,9 @@ Save at: `react_props/task_3/profiler.png`
 1. Open the **Profiler** tab in React DevTools.
 2. Click **Reload and profile** (or record, then refresh the page).
 3. Stop recording when the page has loaded.
-4. In the flamegraph / ranked chart, find render duration **after `App`**.
-5. Note the slowest child: typically **`Notifications`** (renders the list and three `NotificationItem` components).
-6. Screenshot the Profiler view with **`App`** and **`Notifications`** (or the ranked list) visible.
+4. In the flamegraph / ranked chart, open the **ranked** view (slowest first).
+5. You should see **`App`** at the top, then **`Notifications`** in 2nd or 3rd place (it renders the list and three `NotificationItem` components).
+6. Screenshot the Profiler view with the ranked list showing **`App`** and **`Notifications`** clearly visible.
 
 ---
 

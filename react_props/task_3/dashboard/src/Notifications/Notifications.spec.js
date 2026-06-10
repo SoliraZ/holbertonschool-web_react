@@ -8,8 +8,8 @@ const notificationsList = [
   {
     id: 3,
     type: 'urgent',
-    value: getLatestNotification(),
-    html: getLatestNotification(),
+    value: 'Urgent requirement - complete by EOD',
+    html: { __html: getLatestNotification() },
   },
 ]
 
