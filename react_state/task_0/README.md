@@ -1,3 +1,3 @@
-# React Styling - Task 4
+# React State - Task 0
 
-Make the Holberton Dashboard responsive across breakpoints, including full-screen notifications below 912px.
+Add local state in `App` to control the notifications drawer (`displayDrawer`) and wire show/hide handlers to the `Notifications` component.
