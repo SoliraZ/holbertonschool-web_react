@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Login from './login.jsx'
+import Login from './Login.jsx'
 
 describe('Login', () => {
   beforeEach(() => {
