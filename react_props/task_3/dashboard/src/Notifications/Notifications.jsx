@@ -1,5 +1,6 @@
 import closeButton from '../assets/close-button.png'
 import NotificationItem from './NotificationItem.jsx'
+import './Notifications.css'
 
 const closeButtonStyle = {
   width: '1.75rem',
