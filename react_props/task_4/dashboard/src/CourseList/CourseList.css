@@ -1,0 +1,24 @@
+#CourseListContainer {
+  flex: 1;
+}
+
+#CourseList {
+  margin: 1rem auto;
+  width: 90%;
+  border: 1px solid #909090;
+  border-collapse: collapse;
+}
+
+#CourseList th,
+#CourseList td {
+  border: 1px solid #909090;
+}
+
+#CourseList th {
+  text-align: center;
+  font-weight: bold;
+}
+
+#CourseList td {
+  padding-left: 8px;
+}

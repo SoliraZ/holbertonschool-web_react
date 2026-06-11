@@ -1,0 +1,22 @@
+.App-body {
+  flex: 1;
+  padding: 1rem 0;
+  text-align: justify;
+}
+
+.App-body p {
+  margin: 0 0 0 1rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 0.95rem;
+}
+
+label[for='email'],
+label[for='password'],
+.App-body #email,
+.App-body #password {
+  margin-left: 0.5rem;
+}
+
+.App-body button {
+  margin-left: 1rem;
+}
