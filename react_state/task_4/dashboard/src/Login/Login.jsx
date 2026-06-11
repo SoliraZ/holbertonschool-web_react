@@ -15,7 +15,7 @@ class Login extends React.Component {
       password: props.password,
       enableSubmit: false,
     }
-    this.emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    this.emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
   }
 
   handleChangeEmail = (event) => {
