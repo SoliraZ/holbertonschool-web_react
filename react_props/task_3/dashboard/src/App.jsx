@@ -1,5 +1,4 @@
 import { Fragment } from 'react'
-import holbertonLogo from './assets/holberton-logo.jpg'
 import { getLatestNotification } from './utils/utils.js'
 import './App/App.css'
 import Notifications from './Notifications/Notifications.jsx'
@@ -14,8 +13,7 @@ function App() {
     {
       id: 3,
       type: 'urgent',
-      value: 'Urgent requirement - complete by EOD',
-      html: { __html: getLatestNotification() },
+      html: getLatestNotification(),
     },
   ]
 
@@ -27,12 +25,6 @@ function App() {
       <Header />
       <Login />
       <Footer />
-      <img
-        src={holbertonLogo}
-        alt=""
-        aria-hidden="true"
-        style={{ display: 'none' }}
-      />
       {Array.from({ length: 500 }, (_, index) => (
         <span key={index} style={{ display: 'none' }} aria-hidden="true" />
       ))}

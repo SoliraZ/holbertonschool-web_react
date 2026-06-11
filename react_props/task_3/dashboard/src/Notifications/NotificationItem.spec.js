@@ -25,4 +25,44 @@ describe('NotificationItem', () => {
     expect(item).toHaveStyle({ color: 'red' })
     expect(item).toHaveTextContent('New resume available')
   })
+
+  test('changes color when type prop changes from default to urgent', () => {
+    const { rerender } = render(
+      <ul>
+        <NotificationItem type="default" value="New course available" html={false} />
+      </ul>,
+    )
+
+    const item = screen.getByRole('listitem')
+    expect(item).toHaveStyle({ color: 'blue' })
+
+    rerender(
+      <ul>
+        <NotificationItem type="urgent" value="New course available" html={false} />
+      </ul>,
+    )
+
+    expect(item).toHaveStyle({ color: 'red' })
+    expect(item).toHaveAttribute('data-notification-type', 'urgent')
+  })
+
+  test('changes color when type prop changes from urgent to default', () => {
+    const { rerender } = render(
+      <ul>
+        <NotificationItem type="urgent" value="New resume available" html={false} />
+      </ul>,
+    )
+
+    const item = screen.getByRole('listitem')
+    expect(item).toHaveStyle({ color: 'red' })
+
+    rerender(
+      <ul>
+        <NotificationItem type="default" value="New resume available" html={false} />
+      </ul>,
+    )
+
+    expect(item).toHaveStyle({ color: 'blue' })
+    expect(item).toHaveAttribute('data-notification-type', 'default')
+  })
 })

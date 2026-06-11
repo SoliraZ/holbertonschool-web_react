@@ -25,9 +25,7 @@ Save at: `react_props/task_3/change_property.png`
 3. In the right panel **props**, change `type` from `"default"` to `"urgent"`.
 4. Confirm on the page: **"New course available"** turns **red** (was blue).
 5. Change `type` back to `"default"` to confirm it turns **blue** again.
-6. Take a screenshot showing:
-   - DevTools with `NotificationItem` selected and `type` visible in props
-   - The dashboard with the first notification in the new color
+6. Take a screenshot showing DevTools with `NotificationItem` selected and the first notification in the new color.
 
 ---
 
@@ -38,9 +36,9 @@ Save at: `react_props/task_3/profiler.png`
 1. Open the **Profiler** tab in React DevTools.
 2. Click **Reload and profile** (or record, then refresh the page).
 3. Stop recording when the page has loaded.
-4. In the flamegraph / ranked chart, open the **ranked** view (slowest first).
-5. In the **ranked** view (slowest first), **`App`** should be #1 and **`Notifications`** should be **#2 or #3** — not #1. `Notifications` is measured first by the checker (cold-start cost), but `App` renders the full dashboard tree and should still rank slower overall.
-6. Screenshot the Profiler view with the ranked list showing **`App`** and **`Notifications`** clearly visible.
+4. Open the **ranked** view (slowest first).
+5. **`App`** should be #1 and **`Notifications`** should be **#2** (longest render time after App).
+6. Screenshot the Profiler ranked list with **`App`** and **`Notifications`** clearly visible.
 
 ---
 
