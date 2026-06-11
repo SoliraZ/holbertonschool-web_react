@@ -34,6 +34,7 @@ class App extends React.Component {
       password: '',
       isLoggedIn: false,
     }
+    this.markNotificationAsRead = this.markNotificationAsRead.bind(this)
     this.state = {
       displayDrawer: false,
       user,
@@ -76,13 +77,13 @@ class App extends React.Component {
     })
   }
 
-  markNotificationAsRead = (id) => {
-    console.log(`Notification ${id} has been marked as read`)
-    this.setState((prevState) => ({
-      notifications: prevState.notifications.filter(
+  markNotificationAsRead(id) {
+    console.log('Notification ' + id + ' has been marked as read')
+    this.setState({
+      notifications: this.state.notifications.filter(
         (notification) => notification.id !== id,
       ),
-    }))
+    })
   }
 
   handleDisplayDrawer = () => {
