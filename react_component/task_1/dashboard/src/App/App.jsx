@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Component, Fragment } from 'react'
 import { getLatestNotification } from '../utils/utils.js'
 import './App.css'
 import Notifications from '../Notifications/Notifications.jsx'
@@ -6,7 +6,7 @@ import Header from '../Header/Header.jsx'
 import Login from '../Login/Login.jsx'
 import Footer from '../Footer/Footer.jsx'
 
-class App extends React.Component {
+class App extends Component {
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown)
   }
@@ -17,13 +17,8 @@ class App extends React.Component {
 
   handleKeyDown = (event) => {
     const keysPressed = { h: true }
-    const pressedKey =
-      typeof event.key === 'string' ? event.key.toLowerCase() : ''
-    const isHPressed =
-      (pressedKey in keysPressed && keysPressed[pressedKey]) ||
-      event.keyCode === 72
 
-    if (event.ctrlKey && isHPressed) {
+    if (event.ctrlKey && event.key in keysPressed) {
       alert('Logging you out')
       this.props.logOut()
     }
@@ -36,7 +31,6 @@ class App extends React.Component {
       {
         id: 3,
         type: 'urgent',
-        value: 'Urgent requirement - complete by EOD',
         html: getLatestNotification(),
       },
     ]
