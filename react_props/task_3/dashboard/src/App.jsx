@@ -28,9 +28,6 @@ class App extends React.Component {
         <Header />
         <Login />
         <Footer />
-        {Array.from({ length: 300 }, (_, index) => (
-          <span key={index} style={{ display: 'none' }} aria-hidden="true" />
-        ))}
       </Fragment>
     )
   }
