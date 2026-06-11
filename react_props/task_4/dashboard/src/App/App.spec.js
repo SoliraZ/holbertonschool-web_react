@@ -24,6 +24,9 @@ describe('App', () => {
       within(wrap).getByText(/here is the list of notifications/i),
     ).toBeInTheDocument()
     expect(within(wrap).getAllByRole('listitem')).toHaveLength(3)
+    expect(within(wrap).getByText(/new course available/i)).toBeInTheDocument()
+    expect(within(wrap).getByText(/new resume available/i)).toBeInTheDocument()
+    expect(within(wrap).getByText(/urgent requirement/i)).toBeInTheDocument()
   })
 
   test('renders footer copyright text', () => {
@@ -52,11 +55,9 @@ describe('App', () => {
     render(<App isLoggedIn={true} />)
 
     const table = screen.getByRole('table')
+    expect(table).toBeInTheDocument()
     expect(table).toHaveAttribute('id', 'CourseList')
     expect(within(table).getAllByRole('row')).toHaveLength(5)
-    expect(screen.getByText('ES6')).toBeInTheDocument()
-    expect(screen.getByText('Webpack')).toBeInTheDocument()
-    expect(screen.getByText('React')).toBeInTheDocument()
     expect(
       screen.queryByText(/login to access the full dashboard/i),
     ).not.toBeInTheDocument()

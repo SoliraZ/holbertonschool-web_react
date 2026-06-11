@@ -3,22 +3,14 @@
 }
 
 #CourseList {
-  margin: 1rem auto;
+  margin: 1rem 0;
   width: 90%;
-  border: 1px solid #909090;
+  justify-self: center;
+  border: #909090 solid;
   border-collapse: collapse;
 }
 
 #CourseList th,
 #CourseList td {
-  border: 1px solid #909090;
-}
-
-#CourseList th {
-  text-align: center;
-  font-weight: bold;
-}
-
-#CourseList td {
-  padding-left: 8px;
+  border: #909090 solid;
 }

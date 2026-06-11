@@ -1,13 +1,10 @@
 .App-body {
-  flex: 1;
-  padding: 1rem 0;
   text-align: justify;
+  flex: 1;
 }
 
 .App-body p {
-  margin: 0 0 0 1rem;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 0.95rem;
+  margin-left: 1rem;
 }
 
 label[for='email'],
