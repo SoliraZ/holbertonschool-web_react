@@ -1,0 +1,16 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: #e1003c solid 2.5px;
+}
+
+.header-wrapper {
+  flex-grow: 1;
+}
