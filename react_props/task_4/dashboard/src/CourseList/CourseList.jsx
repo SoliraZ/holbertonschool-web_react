@@ -6,12 +6,12 @@ function CourseList({ courses = [] }) {
     <div id="CourseListContainer">
       <table id="CourseList">
         {courses.length === 0 ? (
-          <tbody>
+          <thead>
             <CourseListRow
               isHeader={true}
               textFirstCell="No course available yet"
             />
-          </tbody>
+          </thead>
         ) : (
           <>
             <thead>

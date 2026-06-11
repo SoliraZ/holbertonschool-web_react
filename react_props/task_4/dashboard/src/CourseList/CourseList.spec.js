@@ -12,15 +12,20 @@ describe('CourseList', () => {
     render(<CourseList />)
 
     const table = screen.getByRole('table')
-    expect(table).toBeInTheDocument()
+    expect(table).toHaveAttribute('id', 'CourseList')
     expect(within(table).getAllByRole('row')).toHaveLength(1)
+    expect(
+      within(table.querySelector('thead')).getByRole('columnheader', {
+        name: /no course available yet/i,
+      }),
+    ).toBeInTheDocument()
   })
 
   test('renders 5 rows when it receives an array of course objects', () => {
     render(<CourseList courses={coursesList} />)
 
     const table = screen.getByRole('table')
-    expect(table).toBeInTheDocument()
+    expect(table).toHaveAttribute('id', 'CourseList')
     expect(within(table).getAllByRole('row')).toHaveLength(5)
   })
 })
