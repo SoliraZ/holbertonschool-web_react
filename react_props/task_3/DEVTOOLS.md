@@ -39,7 +39,7 @@ Save at: `react_props/task_3/profiler.png`
 2. Click **Reload and profile** (or record, then refresh the page).
 3. Stop recording when the page has loaded.
 4. In the flamegraph / ranked chart, open the **ranked** view (slowest first).
-5. You should see **`App`** at the top, then **`Notifications`** in 2nd or 3rd place (it renders the list and three `NotificationItem` components).
+5. In the **ranked** view (slowest first), **`App`** should be #1 and **`Notifications`** should be **#2 or #3** — not #1. `Notifications` is measured first by the checker (cold-start cost), but `App` renders the full dashboard tree and should still rank slower overall.
 6. Screenshot the Profiler view with the ranked list showing **`App`** and **`Notifications`** clearly visible.
 
 ---
