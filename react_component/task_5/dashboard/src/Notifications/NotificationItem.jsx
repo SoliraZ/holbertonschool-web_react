@@ -1,30 +1,24 @@
-import React from 'react'
+import { PureComponent } from 'react'
 
-class NotificationItem extends React.PureComponent {
-  static defaultProps = {
-    markAsRead: () => {},
-  }
-
-  handleItemClick = () => {
-    const { id, markAsRead } = this.props
-    markAsRead(id)
-  }
-
+class NotificationItem extends PureComponent {
   render() {
-    const { type, value, html } = this.props
+    const { type, value, html, id, markAsRead } = this.props
+    const htmlContent =
+      typeof html === 'string' ? { __html: html } : html
+    const colorStyle = { color: type === 'default' ? 'blue' : 'red' }
 
     return html ? (
       <li
         data-notification-type={type}
-        dangerouslySetInnerHTML={{ __html: html }}
-        style={{ color: type === 'default' ? 'blue' : 'red' }}
-        onClick={this.handleItemClick}
+        dangerouslySetInnerHTML={htmlContent}
+        style={colorStyle}
+        onClick={() => markAsRead(id)}
       />
     ) : (
       <li
         data-notification-type={type}
-        style={{ color: type === 'default' ? 'blue' : 'red' }}
-        onClick={this.handleItemClick}
+        style={colorStyle}
+        onClick={() => markAsRead(id)}
       >
         {value}
       </li>

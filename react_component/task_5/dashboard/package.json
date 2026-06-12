@@ -51,11 +51,6 @@
     },
     "transformIgnorePatterns": [
       "/node_modules/"
-    ],
-    "testMatch": [
-      "<rootDir>/*.spec.js",
-      "<rootDir>/src/**/*.test.js?(x)",
-      "<rootDir>/src/**/*.spec.js"
     ]
   }
 }
