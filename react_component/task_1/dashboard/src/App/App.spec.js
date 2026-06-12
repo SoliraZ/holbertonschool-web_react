@@ -1,28 +1,37 @@
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
-import App from './App.jsx'
+import App from './App'
 
 afterEach(() => {
   cleanup()
 })
 
-test('should call logOut when Ctrl+h is pressed', () => {
-  const logOut = jest.fn()
-  const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {})
-  render(<App logOut={logOut} />)
-  fireEvent.keyDown(document, { key: 'h', ctrlKey: true })
-  expect(logOut).toHaveBeenCalledTimes(1)
-  alertSpy.mockRestore()
-})
+describe('App component', () => {
+  // Tests logOut
+  test('should call logOut when Ctrl+h is pressed', () => {
+    const logOutSpy = jest.fn()
+    const logOutAlertSpy = jest
+      .spyOn(window, 'alert')
+      .mockImplementation(() => {})
+    render(<App logOut={logOutSpy} />)
 
-test('should call alert with Logging you out when Ctrl+h is pressed', () => {
-  const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {})
-  render(<App />)
-  fireEvent.keyDown(document, { key: 'h', ctrlKey: true })
-  expect(alertSpy).toHaveBeenCalledWith('Logging you out')
-  alertSpy.mockRestore()
-})
+    fireEvent.keyDown(document, { key: 'h', ctrlKey: true })
 
-describe('App', () => {
+    expect(logOutSpy).toHaveBeenCalledTimes(1)
+    logOutAlertSpy.mockRestore()
+  })
+
+  test('should call alert with Logging you out when Ctrl+h is pressed', () => {
+    const logOutAlertSpy = jest
+      .spyOn(window, 'alert')
+      .mockImplementation(() => {})
+    render(<App />)
+
+    fireEvent.keyDown(document, { key: 'h', ctrlKey: true })
+
+    expect(logOutAlertSpy).toHaveBeenCalledWith('Logging you out')
+    logOutAlertSpy.mockRestore()
+  })
+
   test('renders h1 with text School Dashboard', () => {
     render(<App />)
     expect(
