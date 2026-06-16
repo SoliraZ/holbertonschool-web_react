@@ -1,9 +1,41 @@
-import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import axios from 'axios'
+
+const markNotificationAsReadRefs = []
+
+jest.mock('../Notifications/Notifications.jsx', () => {
+  const Actual = jest.requireActual('../Notifications/Notifications.jsx').default
+
+  return {
+    __esModule: true,
+    default: function NotificationsWithSpy(props) {
+      markNotificationAsReadRefs.push(props.markNotificationAsRead)
+      return <Actual {...props} />
+    },
+  }
+})
+
 import App from './App.jsx'
+
+const notificationsList = [
+  { id: 1, type: 'default', value: 'New course available' },
+  { id: 2, type: 'urgent', value: 'New resume available' },
+  {
+    id: 3,
+    type: 'urgent',
+    html: '<strong>Urgent requirement</strong> - complete by EOD',
+  },
+]
+
+beforeEach(() => {
+  markNotificationAsReadRefs.length = 0
+  axios.get.mockResolvedValue({ data: notificationsList })
+})
 
 afterEach(() => {
   cleanup()
+  jest.clearAllMocks()
 })
 
 describe('App drawer handlers', () => {
@@ -11,9 +43,11 @@ describe('App drawer handlers', () => {
     const user = userEvent.setup()
     render(<App />)
 
-    expect(
-      screen.getByText(/here is the list of notifications/i),
-    ).toBeInTheDocument()
+    await waitFor(() => {
+      expect(
+        screen.getByText(/here is the list of notifications/i),
+      ).toBeInTheDocument()
+    })
 
     await user.click(screen.getByLabelText(/close/i))
 
@@ -25,6 +59,12 @@ describe('App drawer handlers', () => {
   test('handleDisplayDrawer shows the notifications drawer', async () => {
     const user = userEvent.setup()
     render(<App />)
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(/here is the list of notifications/i),
+      ).toBeInTheDocument()
+    })
 
     await user.click(screen.getByLabelText(/close/i))
     expect(
@@ -39,8 +79,12 @@ describe('App drawer handlers', () => {
 })
 
 describe('App login and logout state', () => {
-  test('shows the login form when the user is not logged in', () => {
+  test('shows the login form when the user is not logged in', async () => {
     render(<App />)
+
+    await waitFor(() => {
+      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+    })
 
     expect(
       screen.getByText(/login to access the full dashboard/i),
@@ -52,6 +96,10 @@ describe('App login and logout state', () => {
   test('logIn updates email, password, and isLoggedIn in user state', async () => {
     const user = userEvent.setup()
     render(<App />)
+
+    await waitFor(() => {
+      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+    })
 
     await user.type(screen.getByLabelText(/email/i), 'test@example.com')
     await user.type(screen.getByLabelText(/password/i), '12345678')
@@ -76,6 +124,10 @@ describe('App login and logout state', () => {
     const user = userEvent.setup()
     render(<App />)
 
+    await waitFor(() => {
+      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+    })
+
     await user.type(screen.getByLabelText(/email/i), 'test@example.com')
     await user.type(screen.getByLabelText(/password/i), '12345678')
     await user.click(screen.getByRole('button', { name: /^ok$/i }))
@@ -94,11 +146,13 @@ describe('App login and logout state', () => {
     ).not.toBeInTheDocument()
   })
 
-  test('clicking a notification removes it and logs the expected message', () => {
+  test('clicking a notification removes it and logs the expected message', async () => {
     const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
     render(<App />)
 
-    expect(screen.getByText('New course available')).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByText('New course available')).toBeInTheDocument()
+    })
 
     const items = screen.getAllByRole('listitem')
     fireEvent.click(items[0])
@@ -110,16 +164,42 @@ describe('App login and logout state', () => {
   })
 })
 
+describe('App callback stability', () => {
+  test('markNotificationAsRead keeps the same function reference between re-renders', async () => {
+    const { rerender } = render(<App />)
+
+    await waitFor(() => {
+      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+    })
+
+    rerender(<App />)
+    rerender(<App />)
+
+    expect(markNotificationAsReadRefs.length).toBeGreaterThanOrEqual(2)
+    expect(markNotificationAsReadRefs[0]).toBe(markNotificationAsReadRefs[1])
+  })
+})
+
 describe('App', () => {
-  test('renders h1 with text School Dashboard', () => {
+  test('renders h1 with text School Dashboard', async () => {
     render(<App />)
+
+    await waitFor(() => {
+      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+    })
+
     expect(
       screen.getByRole('heading', { name: /school dashboard/i }),
     ).toBeInTheDocument()
   })
 
-  test('body and footer paragraphs match the dashboard copy', () => {
+  test('body and footer paragraphs match the dashboard copy', async () => {
     render(<App />)
+
+    await waitFor(() => {
+      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+    })
+
     const body = document.querySelector('.App-body')
     const footer = document.querySelector('.App-footer')
     expect(
@@ -133,15 +213,25 @@ describe('App', () => {
     ).toBeInTheDocument()
   })
 
-  test('renders the holberton logo image', () => {
+  test('renders the holberton logo image', async () => {
     render(<App />)
+
+    await waitFor(() => {
+      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+    })
+
     expect(
       screen.getByRole('img', { name: /holberton logo/i }),
     ).toBeInTheDocument()
   })
 
-  test('renders notifications inside root-notifications', () => {
+  test('renders notifications inside root-notifications', async () => {
     render(<App />)
+
+    await waitFor(() => {
+      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+    })
+
     const wrap = document.querySelector('.root-notifications')
     expect(wrap).toBeInTheDocument()
     expect(
@@ -149,8 +239,13 @@ describe('App', () => {
     ).toBeInTheDocument()
   })
 
-  test('displays News from the School title and paragraph by default', () => {
+  test('displays News from the School title and paragraph by default', async () => {
     render(<App />)
+
+    await waitFor(() => {
+      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+    })
+
     expect(
       screen.getByRole('heading', { name: /news from the school/i }),
     ).toBeInTheDocument()

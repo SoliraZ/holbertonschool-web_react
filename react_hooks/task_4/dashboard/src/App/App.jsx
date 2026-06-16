@@ -1,5 +1,5 @@
-import { useCallback, useMemo, useState } from 'react'
-import { getLatestNotification } from '../utils/utils.js'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import axios from 'axios'
 import newContext from '../Context/context.js'
 import Notifications from '../Notifications/Notifications.jsx'
 import Header from '../Header/Header.jsx'
@@ -8,17 +8,6 @@ import Footer from '../Footer/Footer.jsx'
 import CourseList from '../CourseList/CourseList.jsx'
 import BodySection from '../BodySection/BodySection.jsx'
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom.jsx'
-
-const notificationsList = [
-  { id: 1, type: 'default', value: 'New course available' },
-  { id: 2, type: 'urgent', value: 'New resume available' },
-  {
-    id: 3,
-    type: 'urgent',
-    value: 'Urgent requirement - complete by EOD',
-    html: getLatestNotification(),
-  },
-]
 
 const coursesList = [
   { id: 1, name: 'ES6', credit: 60 },
@@ -35,7 +24,13 @@ const defaultUser = {
 export default function App() {
   const [displayDrawer, setDisplayDrawer] = useState(true)
   const [user, setUser] = useState(defaultUser)
-  const [notifications, setNotifications] = useState(notificationsList)
+  const [notifications, setNotifications] = useState([])
+
+  useEffect(() => {
+    axios.get('/notifications.json').then((response) => {
+      setNotifications(response.data)
+    })
+  }, [])
 
   const logIn = useCallback((email, password) => {
     setUser({
