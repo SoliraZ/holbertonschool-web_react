@@ -18,7 +18,8 @@ export default function App() {
     const fetchNotifications = async () => {
       try {
         const { data } = await axios.get('/notifications.json')
-        const fetchedNotifications = data.map((notification) =>
+        const notifArray = Array.isArray(data) ? data : (Array.isArray(data?.data) ? data.data : [])
+        const fetchedNotifications = notifArray.map((notification) =>
           notification.id === 3
             ? { ...notification, html: getLatestNotification() }
             : notification,
@@ -40,7 +41,8 @@ export default function App() {
     const fetchCourses = async () => {
       try {
         const { data } = await axios.get('/courses.json')
-        dispatch({ type: APP_ACTIONS.SET_COURSES, payload: data })
+        const coursesArray = Array.isArray(data) ? data : (Array.isArray(data?.data) ? data.data : [])
+        dispatch({ type: APP_ACTIONS.SET_COURSES, payload: coursesArray })
       } catch (error) {
         if (process.env.NODE_ENV === 'development') {
           console.log(error)
