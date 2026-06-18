@@ -43,6 +43,15 @@ function resolveCoursesRequest() {
   mockAxios.mockResponseFor({ url: '/courses.json' }, { data: coursesList })
 }
 
+async function openNotificationsDrawer(user) {
+  await user.click(screen.getByText(/your notifications/i))
+  await waitFor(() => {
+    expect(
+      screen.getByText(/here is the list of notifications/i),
+    ).toBeInTheDocument()
+  })
+}
+
 beforeEach(() => {
   markNotificationAsReadRefs.length = 0
   mockAxios.reset()
@@ -55,14 +64,15 @@ afterEach(() => {
 
 describe('App data fetching', () => {
   test('retrieves notifications data when the App component loads initially', async () => {
+    const user = userEvent.setup()
     render(<App />)
 
     expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
     resolveInitialRequests()
 
-    await waitFor(() => {
-      expect(screen.getByText('New course available')).toBeInTheDocument()
-    })
+    await openNotificationsDrawer(user)
+
+    expect(screen.getByText('New course available')).toBeInTheDocument()
   })
 
   test('retrieves courses data whenever the user state changes', async () => {
@@ -97,11 +107,7 @@ describe('App drawer handlers', () => {
     render(<App />)
     resolveInitialRequests()
 
-    await waitFor(() => {
-      expect(
-        screen.getByText(/here is the list of notifications/i),
-      ).toBeInTheDocument()
-    })
+    await openNotificationsDrawer(user)
 
     await user.click(screen.getByLabelText(/close/i))
 
@@ -115,11 +121,7 @@ describe('App drawer handlers', () => {
     render(<App />)
     resolveInitialRequests()
 
-    await waitFor(() => {
-      expect(
-        screen.getByText(/here is the list of notifications/i),
-      ).toBeInTheDocument()
-    })
+    await openNotificationsDrawer(user)
 
     await user.click(screen.getByLabelText(/close/i))
     expect(
@@ -216,13 +218,12 @@ describe('App login and logout state', () => {
   })
 
   test('clicking a notification removes it and logs the expected message', async () => {
+    const user = userEvent.setup()
     const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
     render(<App />)
     resolveInitialRequests()
 
-    await waitFor(() => {
-      expect(screen.getByText('New course available')).toBeInTheDocument()
-    })
+    await openNotificationsDrawer(user)
 
     const items = screen.getAllByRole('listitem')
     fireEvent.click(items[0])

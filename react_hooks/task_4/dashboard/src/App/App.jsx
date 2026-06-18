@@ -17,7 +17,7 @@ const defaultUser = {
 }
 
 export default function App() {
-  const [displayDrawer, setDisplayDrawer] = useState(true)
+  const [displayDrawer, setDisplayDrawer] = useState(false)
   const [user, setUser] = useState(defaultUser)
   const [notifications, setNotifications] = useState([])
   const [courses, setCourses] = useState([])
