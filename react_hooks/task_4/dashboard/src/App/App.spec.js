@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import axios from 'axios'
+import mockAxios from 'jest-mock-axios'
 
 const markNotificationAsReadRefs = []
 
@@ -18,30 +18,84 @@ jest.mock('../Notifications/Notifications.jsx', () => {
 
 import App from './App.jsx'
 
-const notificationsList = [
+const rawNotifications = [
   { id: 1, type: 'default', value: 'New course available' },
   { id: 2, type: 'urgent', value: 'New resume available' },
   {
     id: 3,
     type: 'urgent',
-    html: '<strong>Urgent requirement</strong> - complete by EOD',
+    value: 'Urgent requirement - complete by EOD',
   },
 ]
 
+const coursesList = [
+  { id: 1, name: 'ES6', credit: 60 },
+  { id: 2, name: 'Webpack', credit: 20 },
+  { id: 3, name: 'React', credit: 40 },
+]
+
+function resolveInitialRequests() {
+  mockAxios.mockResponseFor({ url: '/notifications.json' }, { data: rawNotifications })
+  mockAxios.mockResponseFor({ url: '/courses.json' }, { data: coursesList })
+}
+
+function resolveCoursesRequest() {
+  mockAxios.mockResponseFor({ url: '/courses.json' }, { data: coursesList })
+}
+
 beforeEach(() => {
   markNotificationAsReadRefs.length = 0
-  axios.get.mockResolvedValue({ data: notificationsList })
+  mockAxios.reset()
 })
 
 afterEach(() => {
   cleanup()
-  jest.clearAllMocks()
+  mockAxios.reset()
+})
+
+describe('App data fetching', () => {
+  test('retrieves notifications data when the App component loads initially', async () => {
+    render(<App />)
+
+    expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
+    resolveInitialRequests()
+
+    await waitFor(() => {
+      expect(screen.getByText('New course available')).toBeInTheDocument()
+    })
+  })
+
+  test('retrieves courses data whenever the user state changes', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    resolveInitialRequests()
+
+    await waitFor(() => {
+      expect(mockAxios.get).toHaveBeenCalledWith('/courses.json')
+    })
+
+    await user.type(screen.getByLabelText(/email/i), 'test@example.com')
+    await user.type(screen.getByLabelText(/password/i), '12345678')
+    await user.click(screen.getByRole('button', { name: /^ok$/i }))
+
+    await waitFor(() => {
+      expect(mockAxios.get.mock.calls.filter(([url]) => url === '/courses.json').length).toBeGreaterThan(1)
+    })
+
+    resolveCoursesRequest()
+
+    await waitFor(() => {
+      expect(screen.getByText('ES6')).toBeInTheDocument()
+    })
+  })
 })
 
 describe('App drawer handlers', () => {
   test('handleHideDrawer hides the notifications drawer', async () => {
     const user = userEvent.setup()
     render(<App />)
+    resolveInitialRequests()
 
     await waitFor(() => {
       expect(
@@ -59,6 +113,7 @@ describe('App drawer handlers', () => {
   test('handleDisplayDrawer shows the notifications drawer', async () => {
     const user = userEvent.setup()
     render(<App />)
+    resolveInitialRequests()
 
     await waitFor(() => {
       expect(
@@ -81,9 +136,10 @@ describe('App drawer handlers', () => {
 describe('App login and logout state', () => {
   test('shows the login form when the user is not logged in', async () => {
     render(<App />)
+    resolveInitialRequests()
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+      expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
     })
 
     expect(
@@ -96,16 +152,22 @@ describe('App login and logout state', () => {
   test('logIn updates email, password, and isLoggedIn in user state', async () => {
     const user = userEvent.setup()
     render(<App />)
+    resolveInitialRequests()
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+      expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
     })
 
     await user.type(screen.getByLabelText(/email/i), 'test@example.com')
     await user.type(screen.getByLabelText(/password/i), '12345678')
     await user.click(screen.getByRole('button', { name: /^ok$/i }))
 
-    expect(screen.getByText('ES6')).toBeInTheDocument()
+    resolveCoursesRequest()
+
+    await waitFor(() => {
+      expect(screen.getByText('ES6')).toBeInTheDocument()
+    })
+
     expect(screen.getByText('Webpack')).toBeInTheDocument()
     expect(screen.getByText('React')).toBeInTheDocument()
     expect(
@@ -123,14 +185,21 @@ describe('App login and logout state', () => {
   test('logOut clears email and password and sets isLoggedIn to false', async () => {
     const user = userEvent.setup()
     render(<App />)
+    resolveInitialRequests()
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+      expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
     })
 
     await user.type(screen.getByLabelText(/email/i), 'test@example.com')
     await user.type(screen.getByLabelText(/password/i), '12345678')
     await user.click(screen.getByRole('button', { name: /^ok$/i }))
+
+    resolveCoursesRequest()
+
+    await waitFor(() => {
+      expect(screen.getByText('ES6')).toBeInTheDocument()
+    })
 
     await user.click(screen.getByRole('link', { name: /logout/i }))
 
@@ -149,6 +218,7 @@ describe('App login and logout state', () => {
   test('clicking a notification removes it and logs the expected message', async () => {
     const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
     render(<App />)
+    resolveInitialRequests()
 
     await waitFor(() => {
       expect(screen.getByText('New course available')).toBeInTheDocument()
@@ -167,9 +237,10 @@ describe('App login and logout state', () => {
 describe('App callback stability', () => {
   test('markNotificationAsRead keeps the same function reference between re-renders', async () => {
     const { rerender } = render(<App />)
+    resolveInitialRequests()
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+      expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
     })
 
     rerender(<App />)
@@ -183,9 +254,10 @@ describe('App callback stability', () => {
 describe('App', () => {
   test('renders h1 with text School Dashboard', async () => {
     render(<App />)
+    resolveInitialRequests()
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+      expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
     })
 
     expect(
@@ -195,9 +267,10 @@ describe('App', () => {
 
   test('body and footer paragraphs match the dashboard copy', async () => {
     render(<App />)
+    resolveInitialRequests()
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+      expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
     })
 
     const body = document.querySelector('.App-body')
@@ -215,9 +288,10 @@ describe('App', () => {
 
   test('renders the holberton logo image', async () => {
     render(<App />)
+    resolveInitialRequests()
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+      expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
     })
 
     expect(
@@ -227,9 +301,10 @@ describe('App', () => {
 
   test('renders notifications inside root-notifications', async () => {
     render(<App />)
+    resolveInitialRequests()
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+      expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
     })
 
     const wrap = document.querySelector('.root-notifications')
@@ -241,9 +316,10 @@ describe('App', () => {
 
   test('displays News from the School title and paragraph by default', async () => {
     render(<App />)
+    resolveInitialRequests()
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('/notifications.json')
+      expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
     })
 
     expect(

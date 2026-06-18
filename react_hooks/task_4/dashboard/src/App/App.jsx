@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
+import { getLatestNotification } from '../utils/utils.js'
 import newContext from '../Context/context.js'
 import Notifications from '../Notifications/Notifications.jsx'
 import Header from '../Header/Header.jsx'
@@ -8,12 +9,6 @@ import Footer from '../Footer/Footer.jsx'
 import CourseList from '../CourseList/CourseList.jsx'
 import BodySection from '../BodySection/BodySection.jsx'
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom.jsx'
-
-const coursesList = [
-  { id: 1, name: 'ES6', credit: 60 },
-  { id: 2, name: 'Webpack', credit: 20 },
-  { id: 3, name: 'React', credit: 40 },
-]
 
 const defaultUser = {
   email: '',
@@ -25,12 +20,42 @@ export default function App() {
   const [displayDrawer, setDisplayDrawer] = useState(true)
   const [user, setUser] = useState(defaultUser)
   const [notifications, setNotifications] = useState([])
+  const [courses, setCourses] = useState([])
 
   useEffect(() => {
-    axios.get('/notifications.json').then((response) => {
-      setNotifications(response.data)
-    })
+    const fetchNotifications = async () => {
+      try {
+        const { data } = await axios.get('/notifications.json')
+        const fetchedNotifications = data.map((notification) =>
+          notification.id === 3
+            ? { ...notification, html: getLatestNotification() }
+            : notification,
+        )
+        setNotifications(fetchedNotifications)
+      } catch (error) {
+        if (process.env.NODE_ENV === 'development') {
+          console.log(error)
+        }
+      }
+    }
+
+    fetchNotifications()
   }, [])
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const { data } = await axios.get('/courses.json')
+        setCourses(data)
+      } catch (error) {
+        if (process.env.NODE_ENV === 'development') {
+          console.log(error)
+        }
+      }
+    }
+
+    fetchCourses()
+  }, [user])
 
   const logIn = useCallback((email, password) => {
     setUser({
@@ -85,7 +110,7 @@ export default function App() {
         <main className="App-body flex flex-1 flex-col">
           {user.isLoggedIn ? (
             <BodySectionWithMarginBottom title="Course list">
-              <CourseList courses={coursesList} />
+              <CourseList courses={courses} />
             </BodySectionWithMarginBottom>
           ) : (
             <BodySectionWithMarginBottom title="Log in to continue">

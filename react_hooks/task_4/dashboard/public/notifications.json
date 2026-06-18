@@ -12,6 +12,6 @@
   {
     "id": 3,
     "type": "urgent",
-    "html": "<strong>Urgent requirement</strong> - complete by EOD"
+    "value": "Urgent requirement - complete by EOD"
   }
 ]
