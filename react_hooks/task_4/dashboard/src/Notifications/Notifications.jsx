@@ -24,7 +24,7 @@ function Notifications({
     'notification-title w-full min-w-[200px] max-w-[600px] text-right pr-2 pt-1 text-sm cursor-pointer max-[912px]:max-w-none max-[912px]:px-3 max-[912px]:pt-3'
 
   const panelClasses =
-    'notification-items relative w-full min-w-[200px] max-w-[600px] border border-dashed border-[var(--main-color)] p-[6px] max-[912px]:m-3 max-[912px]:min-w-0 max-[912px]:max-w-none max-[912px]:flex-1 max-[912px]:overflow-auto max-[912px]:p-3'
+    'notification-items relative w-full min-w-[200px] max-w-[600px] border-2 border-dashed border-[var(--main-color)] p-[6px] max-[912px]:m-3 max-[912px]:min-w-0 max-[912px]:max-w-none max-[912px]:flex-1 max-[912px]:overflow-auto max-[912px]:p-3'
 
   const closeButtonEl = (
     <button
