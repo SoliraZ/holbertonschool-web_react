@@ -20,9 +20,8 @@ function Notifications({
     ? 'root-notifications fixed top-0 right-0 z-50 flex w-[min(600px,25vw)] min-w-[200px] flex-col items-end max-[912px]:inset-0 max-[912px]:h-full max-[912px]:w-full max-[912px]:min-w-0 max-[912px]:bg-white'
     : 'root-notifications fixed top-0 right-0 z-50 flex flex-col items-end'
 
-  const titleClasses = displayDrawer
-    ? 'notification-title w-full min-w-[200px] max-w-[600px] text-right max-[912px]:max-w-none max-[912px]:px-3 max-[912px]:pt-3'
-    : 'notification-title text-right pr-2 pt-1 text-sm cursor-pointer'
+  const titleClasses =
+    'notification-title w-full min-w-[200px] max-w-[600px] text-right pr-2 pt-1 text-sm cursor-pointer max-[912px]:max-w-none max-[912px]:px-3 max-[912px]:pt-3'
 
   const panelClasses =
     'notification-items relative w-full min-w-[200px] max-w-[600px] border border-dashed border-[var(--main-color)] p-[6px] max-[912px]:m-3 max-[912px]:min-w-0 max-[912px]:max-w-none max-[912px]:flex-1 max-[912px]:overflow-auto max-[912px]:p-3'

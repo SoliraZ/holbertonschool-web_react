@@ -23,7 +23,7 @@ test('should render without crashing when no notifications prop is passed', () =
   expect(
     screen.getByText(/no new notification for now/i),
   ).toBeInTheDocument()
-  expect(screen.queryByLabelText(/close/i)).not.toBeInTheDocument()
+  expect(screen.getByLabelText(/close/i)).toBeInTheDocument()
   expect(screen.queryAllByRole('listitem')).toHaveLength(0)
 })
 
