@@ -44,7 +44,12 @@ function resolveCoursesRequest() {
 }
 
 async function openNotificationsDrawer(user) {
-  await user.click(screen.getByText(/your notifications/i))
+  // If the drawer is already open (default), clicking again keeps it open.
+  // If it was closed, this click opens it.
+  const title = screen.queryByText(/here is the list of notifications/i)
+  if (!title) {
+    await user.click(screen.getByText(/your notifications/i))
+  }
   await waitFor(() => {
     expect(
       screen.getByText(/here is the list of notifications/i),
