@@ -43,6 +43,8 @@ export default function App() {
   }, [])
 
   useEffect(() => {
+    if (!user.isLoggedIn) return
+
     const fetchCourses = async () => {
       try {
         const { data } = await axios.get('/courses.json')

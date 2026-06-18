@@ -34,9 +34,9 @@ const coursesList = [
   { id: 3, name: 'React', credit: 40 },
 ]
 
-function resolveInitialRequests() {
+// On mount only /notifications.json is requested (courses only after login)
+function resolveNotificationsRequest() {
   mockAxios.mockResponseFor({ url: '/notifications.json' }, { data: rawNotifications })
-  mockAxios.mockResponseFor({ url: '/courses.json' }, { data: coursesList })
 }
 
 function resolveCoursesRequest() {
@@ -44,8 +44,6 @@ function resolveCoursesRequest() {
 }
 
 async function openNotificationsDrawer(user) {
-  // If the drawer is already open (default), clicking again keeps it open.
-  // If it was closed, this click opens it.
   const title = screen.queryByText(/here is the list of notifications/i)
   if (!title) {
     await user.click(screen.getByText(/your notifications/i))
@@ -73,7 +71,7 @@ describe('App data fetching', () => {
     render(<App />)
 
     expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
     await openNotificationsDrawer(user)
 
@@ -84,18 +82,18 @@ describe('App data fetching', () => {
     const user = userEvent.setup()
     render(<App />)
 
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
-    await waitFor(() => {
-      expect(mockAxios.get).toHaveBeenCalledWith('/courses.json')
-    })
+    // Courses should NOT be fetched before login
+    expect(mockAxios.get).not.toHaveBeenCalledWith('/courses.json')
 
     await user.type(screen.getByLabelText(/email/i), 'test@example.com')
     await user.type(screen.getByLabelText(/password/i), '12345678')
     await user.click(screen.getByRole('button', { name: /^ok$/i }))
 
+    // Courses should be fetched after login
     await waitFor(() => {
-      expect(mockAxios.get.mock.calls.filter(([url]) => url === '/courses.json').length).toBeGreaterThan(1)
+      expect(mockAxios.get).toHaveBeenCalledWith('/courses.json')
     })
 
     resolveCoursesRequest()
@@ -110,7 +108,7 @@ describe('App drawer handlers', () => {
   test('handleHideDrawer hides the notifications drawer', async () => {
     const user = userEvent.setup()
     render(<App />)
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
     await openNotificationsDrawer(user)
 
@@ -124,7 +122,7 @@ describe('App drawer handlers', () => {
   test('handleDisplayDrawer shows the notifications drawer', async () => {
     const user = userEvent.setup()
     render(<App />)
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
     await openNotificationsDrawer(user)
 
@@ -143,7 +141,7 @@ describe('App drawer handlers', () => {
 describe('App login and logout state', () => {
   test('shows the login form when the user is not logged in', async () => {
     render(<App />)
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
     await waitFor(() => {
       expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
@@ -159,7 +157,7 @@ describe('App login and logout state', () => {
   test('logIn updates email, password, and isLoggedIn in user state', async () => {
     const user = userEvent.setup()
     render(<App />)
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
     await waitFor(() => {
       expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
@@ -192,7 +190,7 @@ describe('App login and logout state', () => {
   test('logOut clears email and password and sets isLoggedIn to false', async () => {
     const user = userEvent.setup()
     render(<App />)
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
     await waitFor(() => {
       expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
@@ -226,7 +224,7 @@ describe('App login and logout state', () => {
     const user = userEvent.setup()
     const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
     render(<App />)
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
     await openNotificationsDrawer(user)
 
@@ -243,7 +241,7 @@ describe('App login and logout state', () => {
 describe('App callback stability', () => {
   test('markNotificationAsRead keeps the same function reference between re-renders', async () => {
     const { rerender } = render(<App />)
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
     await waitFor(() => {
       expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
@@ -260,7 +258,7 @@ describe('App callback stability', () => {
 describe('App', () => {
   test('renders h1 with text School Dashboard', async () => {
     render(<App />)
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
     await waitFor(() => {
       expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
@@ -273,7 +271,7 @@ describe('App', () => {
 
   test('body and footer paragraphs match the dashboard copy', async () => {
     render(<App />)
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
     await waitFor(() => {
       expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
@@ -294,7 +292,7 @@ describe('App', () => {
 
   test('renders the holberton logo image', async () => {
     render(<App />)
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
     await waitFor(() => {
       expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
@@ -307,7 +305,7 @@ describe('App', () => {
 
   test('renders notifications inside root-notifications', async () => {
     render(<App />)
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
     await waitFor(() => {
       expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
@@ -322,7 +320,7 @@ describe('App', () => {
 
   test('displays News from the School title and paragraph by default', async () => {
     render(<App />)
-    resolveInitialRequests()
+    resolveNotificationsRequest()
 
     await waitFor(() => {
       expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json')
