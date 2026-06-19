@@ -21,12 +21,16 @@ class NotificationItem extends React.PureComponent {
       color: type === 'default' ? 'blue' : 'red',
     }
 
-    return html ? (
+    const htmlContent = html
+      ? (typeof html === 'object' && '__html' in html ? html : { __html: html })
+      : null
+
+    return htmlContent ? (
       <li
         data-notification-type={type}
         className={colorClass}
         style={colorStyle}
-        dangerouslySetInnerHTML={{ __html: html }}
+        dangerouslySetInnerHTML={htmlContent}
         onClick={this.handleItemClick}
       />
     ) : (

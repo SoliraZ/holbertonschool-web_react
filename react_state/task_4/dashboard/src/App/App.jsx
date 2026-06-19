@@ -15,8 +15,7 @@ const notificationsList = [
   {
     id: 3,
     type: 'urgent',
-    value: 'Urgent requirement - complete by EOD',
-    html: getLatestNotification(),
+    html: { __html: getLatestNotification() },
   },
 ]
 
@@ -36,7 +35,7 @@ class App extends React.Component {
     }
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this)
     this.state = {
-      displayDrawer: false,
+      displayDrawer: true,
       user,
       notifications: notificationsList,
       courses: coursesList,
