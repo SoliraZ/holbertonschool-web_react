@@ -8,7 +8,7 @@ export const APP_ACTIONS = {
 }
 
 export const initialState = {
-  displayDrawer: true,
+  displayDrawer: false,
   user: { email: '', password: '', isLoggedIn: false },
   notifications: [],
   courses: [],
