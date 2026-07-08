@@ -87,3 +87,22 @@ test('clicking logout link dispatches the logout action', () => {
   expect(store.getState().auth.user.isLoggedIn).toBe(false);
   expect(store.getState().auth.user.email).toBe('');
 });
+
+test('renders welcome message with entered email and sets isLoggedIn to false when logout is clicked', () => {
+  const store = configureStore({ reducer: { auth: authReducer } });
+  store.dispatch(login({ email: 'test@test.com', password: 'password123' }));
+
+  render(
+    <Provider store={store}>
+      <Header />
+    </Provider>
+  );
+
+  expect(screen.getByText(/test@test.com/i)).toBeInTheDocument();
+  expect(screen.getByText(/logout/i)).toBeInTheDocument();
+
+  fireEvent.click(screen.getByText(/logout/i));
+
+  expect(store.getState().auth.user.isLoggedIn).toBe(false);
+  expect(store.getState().auth.user.email).toBe('');
+});

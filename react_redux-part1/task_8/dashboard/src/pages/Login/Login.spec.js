@@ -107,3 +107,34 @@ test('should dispatch login action to the Redux store on form submission', () =>
   expect(auth.user.password).toBe('password123');
   expect(auth.user.isLoggedIn).toBe(true);
 });
+
+test('dispatches the login action when a valid email and password are entered', () => {
+  const store = renderWithStore();
+
+  const emailInput = screen.getByLabelText(/email/i);
+  const passwordInput = screen.getByLabelText(/password/i);
+
+  fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+  fireEvent.change(passwordInput, { target: { value: 'password123' } });
+
+  expect(screen.getByRole('button', { name: /ok/i })).not.toBeDisabled();
+
+  const form = emailInput.closest('form');
+  fireEvent.submit(form);
+
+  expect(store.getState().auth.user.isLoggedIn).toBe(true);
+  expect(store.getState().auth.user.email).toBe('test@example.com');
+});
+
+test('does not dispatch the login action when credentials are invalid', () => {
+  const store = renderWithStore();
+
+  const emailInput = screen.getByLabelText(/email/i);
+  const passwordInput = screen.getByLabelText(/password/i);
+
+  fireEvent.change(emailInput, { target: { value: 'not-an-email' } });
+  fireEvent.change(passwordInput, { target: { value: '123' } });
+
+  expect(screen.getByRole('button', { name: /ok/i })).toBeDisabled();
+  expect(store.getState().auth.user.isLoggedIn).toBe(false);
+});
