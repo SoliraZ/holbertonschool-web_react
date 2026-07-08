@@ -1,4 +1,5 @@
 import authReducer, { login, logout } from '../auth/authSlice';
+import store from '../../app/store';
 
 const initialState = {
   user: {
@@ -35,5 +36,29 @@ describe('authSlice', () => {
     expect(state.user.email).toBe('');
     expect(state.user.password).toBe('');
     expect(state.user.isLoggedIn).toBe(false);
+  });
+
+  describe('via store', () => {
+    test('store initial auth state is correct', () => {
+      expect(store.getState().auth).toEqual(initialState);
+    });
+
+    test('login action updates the store auth state', () => {
+      store.dispatch(login({ email: 'test@example.com', password: '12345678' }));
+      const { auth } = store.getState();
+
+      expect(auth.user.email).toBe('test@example.com');
+      expect(auth.user.password).toBe('12345678');
+      expect(auth.user.isLoggedIn).toBe(true);
+    });
+
+    test('logout action resets the store auth state', () => {
+      store.dispatch(logout());
+      const { auth } = store.getState();
+
+      expect(auth.user.email).toBe('');
+      expect(auth.user.password).toBe('');
+      expect(auth.user.isLoggedIn).toBe(false);
+    });
   });
 });
