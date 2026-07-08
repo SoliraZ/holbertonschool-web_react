@@ -1,10 +1,25 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
 import App from '../App';
 import mockAxios from 'jest-mock-axios';
+import rootReducer from '../app/rootReducer';
 
 afterEach(() => {
   mockAxios.reset();
 });
+
+const createStore = () => configureStore({ reducer: rootReducer });
+
+const renderApp = () => {
+  const store = createStore();
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+  return store;
+};
 
 const mockNotificationsResponse = {
   data: {
@@ -27,7 +42,7 @@ const mockCoursesResponse = {
 };
 
 test('The App component renders without crashing', async () => {
-  render(<App />);
+  renderApp();
 
   mockAxios.mockResponse(mockNotificationsResponse);
 
@@ -37,23 +52,23 @@ test('The App component renders without crashing', async () => {
 });
 
 test('The App component renders Login by default (user not logged in)', async () => {
-  render(<App />);
+  renderApp();
 
   mockAxios.mockResponse(mockNotificationsResponse);
 
   await waitFor(() => {
     const emailLabelElement = screen.getByLabelText(/email/i);
     const passwordLabelElement = screen.getByLabelText(/password/i);
-    const buttonElements = screen.getAllByRole('button', { name: /ok/i })
+    const buttonElements = screen.getAllByRole('button', { name: /ok/i });
 
-    expect(emailLabelElement).toBeInTheDocument()
-    expect(passwordLabelElement).toBeInTheDocument()
-    expect(buttonElements.length).toBeGreaterThanOrEqual(1)
+    expect(emailLabelElement).toBeInTheDocument();
+    expect(passwordLabelElement).toBeInTheDocument();
+    expect(buttonElements.length).toBeGreaterThanOrEqual(1);
   });
 });
 
 test('it should display "News from the School" title and paragraph by default', async () => {
-  render(<App />);
+  renderApp();
 
   mockAxios.mockResponse(mockNotificationsResponse);
 
@@ -69,7 +84,11 @@ test('it should display "News from the School" title and paragraph by default', 
 test('clicking on a notification item removes it from the list and logs the message', async () => {
   const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
-  const { container } = render(<App />);
+  const { container } = render(
+    <Provider store={createStore()}>
+      <App />
+    </Provider>
+  );
 
   mockAxios.mockResponse(mockNotificationsResponse);
 
@@ -94,7 +113,7 @@ test('clicking on a notification item removes it from the list and logs the mess
 });
 
 test('handleDisplayDrawer sets displayDrawer to true', async () => {
-  render(<App />);
+  renderApp();
 
   mockAxios.mockResponse(mockNotificationsResponse);
 
@@ -114,7 +133,7 @@ test('handleDisplayDrawer sets displayDrawer to true', async () => {
 });
 
 test('handleHideDrawer sets displayDrawer to false', async () => {
-  render(<App />);
+  renderApp();
 
   mockAxios.mockResponse(mockNotificationsResponse);
 
@@ -130,7 +149,7 @@ test('handleHideDrawer sets displayDrawer to false', async () => {
 });
 
 test('logIn function updates user state with email, password, and isLoggedIn true', async () => {
-  render(<App />);
+  renderApp();
 
   mockAxios.mockResponse(mockNotificationsResponse);
 
@@ -161,7 +180,7 @@ test('logIn function updates user state with email, password, and isLoggedIn tru
 });
 
 test('logOut function resets user state to isLoggedIn false with empty email and password', async () => {
-  render(<App />);
+  renderApp();
 
   mockAxios.mockResponse(mockNotificationsResponse);
 
@@ -194,7 +213,7 @@ test('logOut function resets user state to isLoggedIn false with empty email and
 });
 
 test('verify notifications data is fetched when App component loads initially', async () => {
-  render(<App />);
+  renderApp();
 
   expect(mockAxios.get).toHaveBeenCalledWith('http://localhost:5173/notifications.json');
 
@@ -207,7 +226,7 @@ test('verify notifications data is fetched when App component loads initially', 
 });
 
 test('verify courses data is fetched when user state changes to logged in', async () => {
-  render(<App />);
+  renderApp();
 
   mockAxios.mockResponse(mockNotificationsResponse);
 
