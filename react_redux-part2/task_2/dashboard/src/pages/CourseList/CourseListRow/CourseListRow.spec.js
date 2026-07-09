@@ -31,7 +31,13 @@ test('it should render 2 "td" elements inside a "tr" element when isHeader is fa
   render(
     <table>
       <tbody>
-        <CourseListRow isHeader={false} textFirstCell="Data1" textSecondCell="Data2" id={1} changeRow={() => {}} />
+        <CourseListRow
+          isHeader={false}
+          textFirstCell="Data1"
+          textSecondCell="Data2"
+          id={1}
+          changeRow={() => {}}
+        />
       </tbody>
     </table>
   );
@@ -47,7 +53,14 @@ test('it should render a checkbox in a non-header row', () => {
   render(
     <table>
       <tbody>
-        <CourseListRow isHeader={false} textFirstCell="ES6" textSecondCell="60" id={1} isSelected={false} changeRow={() => {}} />
+        <CourseListRow
+          isHeader={false}
+          textFirstCell="ES6"
+          textSecondCell="60"
+          id={1}
+          isSelected={false}
+          changeRow={() => {}}
+        />
       </tbody>
     </table>
   );
@@ -61,7 +74,14 @@ test('it should render a checked checkbox when isSelected is true', () => {
   render(
     <table>
       <tbody>
-        <CourseListRow isHeader={false} textFirstCell="ES6" textSecondCell="60" id={1} isSelected={true} changeRow={() => {}} />
+        <CourseListRow
+          isHeader={false}
+          textFirstCell="ES6"
+          textSecondCell="60"
+          id={1}
+          isSelected={true}
+          changeRow={() => {}}
+        />
       </tbody>
     </table>
   );
@@ -69,17 +89,46 @@ test('it should render a checked checkbox when isSelected is true', () => {
   expect(screen.getByRole('checkbox')).toBeChecked();
 });
 
-test('it should call changeRow with the id and checked state when checkbox changes', () => {
+test('it should call changeRow with the id and checked=true when checkbox is clicked to check', () => {
   const changeRow = jest.fn();
 
   render(
     <table>
       <tbody>
-        <CourseListRow isHeader={false} textFirstCell="ES6" textSecondCell="60" id={1} isSelected={false} changeRow={changeRow} />
+        <CourseListRow
+          isHeader={false}
+          textFirstCell="ES6"
+          textSecondCell="60"
+          id={1}
+          isSelected={false}
+          changeRow={changeRow}
+        />
       </tbody>
     </table>
   );
 
   fireEvent.click(screen.getByRole('checkbox'));
   expect(changeRow).toHaveBeenCalledWith(1, true);
+});
+
+test('it should call changeRow with the id and checked=false when checkbox is clicked to uncheck', () => {
+  const changeRow = jest.fn();
+
+  render(
+    <table>
+      <tbody>
+        <CourseListRow
+          isHeader={false}
+          textFirstCell="ES6"
+          textSecondCell="60"
+          id={1}
+          isSelected={true}
+          changeRow={changeRow}
+        />
+      </tbody>
+    </table>
+  );
+
+  fireEvent.click(screen.getByRole('checkbox'));
+  expect(changeRow).toHaveBeenCalledWith(1, false);
 });

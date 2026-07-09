@@ -2,7 +2,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import CourseList from './CourseList';
-import coursesReducer, { selectCourse, unSelectCourse } from '../../features/courses/coursesSlice';
+import coursesReducer, {
+  selectCourse,
+  unSelectCourse,
+} from '../../features/courses/coursesSlice';
 
 const createStore = (courses = []) => {
   return configureStore({
@@ -61,11 +64,12 @@ test('it should render checkboxes for each course row', () => {
   checkboxes.forEach((cb) => expect(cb).not.toBeChecked());
 });
 
-test('onChangeRow dispatches selectCourse when checkbox is checked', () => {
+test('onChangeRow is invoked and dispatches selectCourse when checkbox is checked', () => {
   const store = createStore([
     { id: 1, name: 'ES6', credit: 60, isSelected: false },
     { id: 2, name: 'Webpack', credit: 20, isSelected: false },
   ]);
+  const dispatchSpy = jest.spyOn(store, 'dispatch');
 
   render(
     <Provider store={store}>
@@ -76,15 +80,17 @@ test('onChangeRow dispatches selectCourse when checkbox is checked', () => {
   const checkboxes = screen.getAllByRole('checkbox');
   fireEvent.click(checkboxes[0]);
 
+  expect(dispatchSpy).toHaveBeenCalledWith(selectCourse(1));
   expect(store.getState().courses.courses.find((c) => c.id === 1).isSelected).toBe(true);
   expect(store.getState().courses.courses.find((c) => c.id === 2).isSelected).toBe(false);
 });
 
-test('onChangeRow dispatches unSelectCourse when checkbox is unchecked', () => {
+test('onChangeRow is invoked and dispatches unSelectCourse when checkbox is unchecked', () => {
   const store = createStore([
     { id: 1, name: 'ES6', credit: 60, isSelected: true },
     { id: 2, name: 'Webpack', credit: 20, isSelected: false },
   ]);
+  const dispatchSpy = jest.spyOn(store, 'dispatch');
 
   render(
     <Provider store={store}>
@@ -96,5 +102,7 @@ test('onChangeRow dispatches unSelectCourse when checkbox is unchecked', () => {
   expect(checkboxes[0]).toBeChecked();
 
   fireEvent.click(checkboxes[0]);
+
+  expect(dispatchSpy).toHaveBeenCalledWith(unSelectCourse(1));
   expect(store.getState().courses.courses.find((c) => c.id === 1).isSelected).toBe(false);
 });
